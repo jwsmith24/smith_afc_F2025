@@ -1,2 +1,5 @@
-# smith_afc_F2025
+# Class Project Repo
 Accelerator web dev projects
+
+My favorite drink is a cold brew coffee.
+
