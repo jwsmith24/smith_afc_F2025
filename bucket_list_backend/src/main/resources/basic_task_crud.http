@@ -1,0 +1,24 @@
+GET http://localhost:8080/api/tasks
+###
+
+POST http://localhost:8080/api/tasks
+Content-Type: application/json
+
+{
+  "description": "buy rope",
+  "complete": false
+}
+
+###
+
+PATCH http://localhost:8080/api/tasks/4
+Content-Type: application/json
+
+{
+  "id": 4,
+  "description": "I have been updated!!!!",
+  "complete": false
+}
+
+###
+PATCH http://localhost:8080/api/tasks/5/toggle_complete

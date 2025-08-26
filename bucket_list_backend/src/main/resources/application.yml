@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: bucket_list_backend
+
+  datasource:
+    url: jdbc:postgresql://localhost:5439/bucket_list_db
+    username: bucket_list_user
+    password: root
+
+  jpa:
+    hibernate:
+      ddl-auto: update

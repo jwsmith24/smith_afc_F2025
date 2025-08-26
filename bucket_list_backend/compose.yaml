@@ -1,0 +1,9 @@
+services:
+  postgres:
+    image: 'postgres:latest'
+    environment:
+      - 'POSTGRES_DB=bucket_list_db'
+      - 'POSTGRES_PASSWORD=root'
+      - 'POSTGRES_USER=bucket_list_user'
+    ports:
+      - '5439:5432'
