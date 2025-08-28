@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Now Hiring</title>
+    <link rel="stylesheet" href="./style.css">
+    <link rel="shortcut icon" href="./resources/taco-icon.png" type="image/x-icon">
+
+</head>
+<body>
+<nav>
+    <a href="./index.html">Home</a>
+    <a href="./menu.html">Menu</a>
+    <a href="./hiring.html">Now Hiring</a>
+</nav>
+
+<div class="hiringContent">
+    <img src="resources/taco-icon.png" alt="taco icon" width="200">
+    <form class="hiringForm">
+        <h3>Apply to be a taco master!</h3>
+        <label>First Name
+            <input name="fName" id="fName" type="text" required minlength="1" maxlength="20">
+        </label>
+        <label>Last Name
+            <input name="lName" id="lName" type="text" minlength="1" maxlength="20">
+        </label>
+        <label>Address 1
+            <input name="address1" id="address1" type="text" required>
+        </label>
+        <label>Address 2
+            <input name="address2" id="address2" type="text">
+        </label>
+        <label>City
+            <input name="city" id="city" type="text" required maxlength="29">
+        </label>
+        <label>State
+            <select name="states" id="states">
+                <option disabled selected>Select state..</option>
+                <option value="AZ">AZ</option>
+                <option value="HI">HI</option>
+                <option value="MI">MI</option>
+                <option value="TN">TN</option>
+                <option value="TX">TX</option>
+            </select>
+        </label>
+        <label>Age
+            <input name="age" id="age" type="number" required min="29" max="99">
+        </label>
+        <label>Phone Number
+            <input name="phone" id="phone" type="tel" required>
+        </label>
+        <label>Email
+            <input name="email" id="email" type="email" required>
+        </label>
+        <label>Password
+            <input name="password" id="password" type="password" required minlength="8" maxlength="12">
+        </label>
+        <label>Marital Status:
+            <input type="radio" name="married" value="single" checked>Single
+            <input type="radio" name="married" value="married">Married
+        </label>
+        <label>Favorite Colors:
+            <input type="checkbox" name="color" value="red">Red
+            <input type="checkbox" name="color" value="blue">Blue
+            <input type="checkbox" name="color" value="green">Green
+            <input type="checkbox" name="color" value="purple">Purple
+            <input type="checkbox" name="color" value="black">Black
+        </label>
+        <label for="info">Additional Info:</label>
+        <textarea name="info" id="info" rows="4" maxlength="30"></textarea>
+        <div class="formButtonGroup">
+            <button type="reset">Reset</button>
+            <button type="submit">Submit</button>
+        </div>
+    </form>
+
+</div>
+
+
+<div class="footer">
+    <p>Taco Restaurant | Jake Smith | 2025</p>
+</div>
+
+</body>
+</html>
