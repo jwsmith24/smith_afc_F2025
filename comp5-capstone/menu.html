@@ -16,7 +16,7 @@
 
 
 </head>
-<body class="container-fluid d-flex flex-column justify-content-center min-vh-100 taco-bg pt-4">
+<body class=" d-flex flex-column justify-content-start taco-bg pt-4">
 <nav class="navbar navbar-expand-lg fixed-top bg-light">
     <ul class="navbar-nav d-flex flex-row gap-4 justify-content-start align-items-center">
         <li class="navbar-brand"><a class="nav-link" href="./index.html"><img src="resources/taco-icon.png"
@@ -27,20 +27,20 @@
     </ul>
 </nav>
 
-<div class="container mt-5 d-flex flex-column  p-4 flex-grow-1 gap-2">
+<div class="container mt-5 d-flex flex-column  p-4 gap-2 w-50">
     <div class="d-flex align-items-center justify-content-center gap-3 bg-light rounded-2 p-1">
         <h1>Menu</h1>
-<!--        font awesome icon-->
+        <!--        font awesome icon-->
         <i class="fa-solid fa-bars"></i></div>
-    <div class="bg-light rounded-2 shadow">
-        <article class="p-4">
+    <div class="bg-light rounded-2 shadow d-grid">
+        <article class="p-4 menu-item d-grid">
             <div class="d-flex align-items-center justify-content-between">
                 <h2 id="itemName"></h2>
-                <img id="itemImage" class="img-fluid" width="100" src="" alt="">
+                <img id="itemImage" class="img-thumbnail" width="100" height="100" src="" alt="">
             </div>
             <p id="itemDescription"></p>
             <p id="itemPrice"></p>
-            <div class="d-flex justify-content-between mt-4">
+            <div class=" mt-4 btn-group gap-2">
                 <button class="btn btn-secondary" id="prevItemButton">Prev Item</button>
                 <button class="btn btn-secondary" id="nextItemButton">Next Item</button>
             </div>
@@ -50,8 +50,8 @@
 </div>
 
 
-<div class="footer bg-light-subtle d-flex justify-content-center align-items-center mt-auto min-vw-100">
-    <p>Taco Restaurant | Jake Smith | 2025</p>
+<div class="bg-light-subtle d-flex mt-auto w-100 justify-content-center align-items-center p-2">
+    <p class="m-0">Taco Restaurant | Jake Smith | 2025</p>
 </div>
 
 </body>

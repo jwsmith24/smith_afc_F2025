@@ -9,10 +9,10 @@ const menuItems = [
         name: "Fajitas",
         description: "yummy fajitas",
         price: 6.99,
-        image: "./resources/fajitas-icon.jpeg"
+        image: "./resources/fajitas3.jpeg"
     },
     {
-        name: "burritos",
+        name: "Burritos",
         description: "yummy burritos",
         price: 6.99,
         image: "./resources/burritos-icon.png"

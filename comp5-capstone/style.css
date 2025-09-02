@@ -27,6 +27,10 @@ body {
     z-index: -99;
 }
 
+.menu-item {
+    height: 40vh;
+}
+
 /*Use google font for all navbar components and all h1 elements*/
 .navbar > *, h1 {
     font-family: 'Poppins', sans-serif;
