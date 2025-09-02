@@ -1,0 +1,91 @@
+/*Make defaults nicer*/
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: sans-serif;
+}
+
+html, body {
+    height: 100%;
+}
+
+body {
+    background-color: cadetblue;
+
+}
+
+main {
+    flex: 1;
+}
+
+
+.footer {
+    background-color: #ffe8ba;
+}
+
+.bannerImg {
+    display: grid;
+    align-content: center;
+
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+th, td {
+    border: 1px solid black;
+    padding: 1rem;
+    text-align: left;
+}
+
+tbody > tr:hover {
+    background-color: darkorange;
+    cursor: pointer;
+}
+
+.menu {
+
+    color: darkorange;
+
+}
+
+.menuContainer {
+    display: grid;
+    justify-items: center;
+    align-content: center;
+    gap: 1rem;
+}
+
+.hiringForm {
+    padding: 1rem;
+    display: grid;
+    gap:1rem;
+    align-content: center;
+}
+
+.hiringContent {
+    display: grid;
+    padding: 1rem;
+    align-items: center;
+}
+
+.formButtonGroup {
+    display: flex;
+    gap:1rem;
+}
+
+.formButtonGroup > button {
+    padding: 4px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+}
+
+.formButtonGroup > button:hover {
+    opacity: .9;
+    cursor: pointer;
+}
+
+
