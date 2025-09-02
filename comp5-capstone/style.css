@@ -15,8 +15,18 @@ body {
 
 }
 
-main {
-    flex: 1;
+.taco-bg {
+    background-image: url("./resources/taco-background-icon.png");
+    background-size: 100px 100px;
+    background-repeat: repeat;
+    background-color: red;
+    z-index: -99;
+}
+
+/*Use google font for all navbar components and all h1 elements*/
+.navbar > *, h1 {
+    font-family: 'Poppins', sans-serif;
+
 }
 
 

@@ -6,71 +6,54 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Menu</title>
-    <link rel="stylesheet" href="../lab2/restaurant-site/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+
+
+    <link rel="stylesheet" href="./style.css">
     <link rel="shortcut icon" href="resources/taco-icon.png" type="image/x-icon">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
 
 
 </head>
-<body>
-<nav class="navbar navbar-expand-lg fixed-top p-2">
-    <ul class="navbar-nav flex-row gap-4 justify-content-start">
-        <li class="nav-item"><a href="./index.html">Home</a></li>
-        <li class="nav-item"><a href="menu.html">Menu</a></li>
-        <li class="nav-item"><a href="hiring.html">Apply</a></li>
+<body class="container-fluid d-flex flex-column justify-content-center min-vh-100 taco-bg pt-4">
+<nav class="navbar navbar-expand-lg fixed-top bg-light">
+    <ul class="navbar-nav d-flex flex-row gap-4 justify-content-start align-items-center">
+        <li class="navbar-brand"><a class="nav-link" href="./index.html"><img src="resources/taco-icon.png"
+                                                                              alt="Taco Logo" width="40"
+                                                                              height="40"></a></li>
+        <li class="nav-item"><a class="nav-link" href="menu.html">Menu</a></li>
+        <li class="nav-item"><a class="nav-link" href="hiring.html">Apply</a></li>
     </ul>
 </nav>
 
-<div class="menuContainer">
-    <div class="menu">
+<div class="container mt-5 d-flex flex-column  p-4 flex-grow-1 gap-2">
+    <div class="d-flex align-items-center justify-content-center gap-3 bg-light rounded-2 p-1">
         <h1>Menu</h1>
-    </div>
+<!--        font awesome icon-->
+        <i class="fa-solid fa-bars"></i></div>
+    <div class="bg-light rounded-2 shadow">
+        <article class="p-4">
+            <div class="d-flex align-items-center justify-content-between">
+                <h2 id="itemName"></h2>
+                <img id="itemImage" class="img-fluid" width="100" src="" alt="">
+            </div>
+            <p id="itemDescription"></p>
+            <p id="itemPrice"></p>
+            <div class="d-flex justify-content-between mt-4">
+                <button class="btn btn-secondary" id="prevItemButton">Prev Item</button>
+                <button class="btn btn-secondary" id="nextItemButton">Next Item</button>
+            </div>
+        </article>
 
-    <div>
-        <table>
-            <thead>
-            <tr>
-                <th>Item Name</th>
-                <th>Description</th>
-                <th>Price</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-                <td>Tacos</td>
-                <td>Yummy tacos</td>
-                <td>$5.99</td>
-            </tr>
-            <tr>
-                <td>Fajitas</td>
-                <td>Yummy fajitas</td>
-                <td>$6.99</td>
-            </tr>
-            <tr>
-                <td>Burritos</td>
-                <td>Yummy burritos</td>
-                <td>$6.99</td>
-            </tr>
-            <tr>
-                <td>Aqua Fresca</td>
-                <td>DELICIOUS</td>
-                <td>$3.99</td>
-            </tr>
-            <tr>
-                <td>Horchata</td>
-                <td>DELICIOUS!</td>
-                <td>$3.99</td>
-            </tr>
-
-            </tbody>
-        </table>
     </div>
 </div>
 
 
-<div class="footer">
+<div class="footer bg-light-subtle d-flex justify-content-center align-items-center mt-auto min-vw-100">
     <p>Taco Restaurant | Jake Smith | 2025</p>
 </div>
 
 </body>
+<script src="menuHandler.js"></script>
 </html>
