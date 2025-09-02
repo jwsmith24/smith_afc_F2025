@@ -31,19 +31,19 @@
         <form class=" p-4 bg-light rounded shadow d-grid gap-2">
             <h3>Apply to be a taco master!</h3>
             <label>First Name
-                <input name="fName" id="fName" type="text" required minlength="1" maxlength="20">
+                <input name="fName" id="fName" type="text">
             </label>
             <label>Last Name
-                <input name="lName" id="lName" type="text" minlength="1" maxlength="20">
+                <input name="lName" id="lName" type="text">
             </label>
             <label>Address 1
-                <input name="address1" id="address1" type="text" required>
+                <input name="address1" id="address1" type="text">
             </label>
             <label>Address 2
                 <input name="address2" id="address2" type="text">
             </label>
             <label>City
-                <input name="city" id="city" type="text" required maxlength="29">
+                <input name="city" id="city" type="text" >
             </label>
             <label>State
                 <select name="states" id="states">
@@ -56,16 +56,16 @@
                 </select>
             </label>
             <label>Age
-                <input name="age" id="age" type="number" required min="29" max="99">
+                <input name="age" id="age" type="number">
             </label>
             <label>Phone Number
-                <input name="phone" id="phone" type="tel" required>
+                <input name="phone" id="phone" type="tel" >
             </label>
             <label>Email
-                <input name="email" id="email" type="email" required>
+                <input name="email" id="email" type="email">
             </label>
             <label>Password
-                <input name="password" id="password" type="password" required minlength="8" maxlength="12">
+                <input name="password" id="password" type="password">
             </label>
             <label>Marital Status:
                 <input type="radio" name="married" value="single" checked>Single
@@ -93,4 +93,5 @@
 </div>
 
 </body>
+<script src="formValidation.js"></script>
 </html>

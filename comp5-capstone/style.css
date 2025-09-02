@@ -15,6 +15,10 @@ body {
 
 }
 
+.error {
+    outline-color: red;
+}
+
 .taco-bg {
     background-image: url("./resources/taco-background-icon.png");
     background-size: 100px 100px;
