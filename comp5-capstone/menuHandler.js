@@ -1,31 +1,31 @@
 const menuItems = [
     {
         name: "Tacos",
-        description: "yummy tacos",
+        description: "Personally recommended by everyone you know, genuinely SCRUMPTIOUS",
         price: 5.99,
         image: "./resources/taco-icon.png"
     },
     {
         name: "Fajitas",
-        description: "yummy fajitas",
+        description: "All ratings say: exceptionally PALATABLE",
         price: 6.99,
         image: "./resources/fajitas3.jpeg"
     },
     {
         name: "Burritos",
-        description: "yummy burritos",
+        description: "These are quite DELECTABLE. Order them rn or else.",
         price: 6.99,
         image: "./resources/burritos-icon.png"
     },
     {
         name: "Aqua Fresca",
-        description: "delicious",
+        description: "Moderately DIVINE. Flavors: Strawberry, Cantaloupe, or Prickly Pear.",
         price: 3.99,
         image: "./resources/aqua-fresca-icon.png"
     },
     {
         name: "Horchata",
-        description: "DELICIOUS",
+        description: "Cinnamon included at no extra charge.",
         price: 3.99,
         image: "./resources/horchata-icon.png"
     }

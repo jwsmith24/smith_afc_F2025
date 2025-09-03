@@ -6,7 +6,7 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Now Hiring</title>
-<!--    use google fonts-->
+    <!--    use google fonts-->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
 
@@ -15,84 +15,131 @@
 
 
 </head>
-<body class="d-flex flex-column vh-100 gap-3 justify-content-center taco-bg">
-<nav class="navbar navbar-expand-lg fixed-top p-1 z-3 bg-light-subtle">
+<body class="min-vh-100 d-flex flex-column taco-bg">
+
+<nav class="navbar navbar-expand-lg p-1 z-3 bg-light-subtle">
     <ul class="navbar-nav d-flex flex-row gap-4 justify-content-start align-items-center">
         <li class="navbar-brand"><a class="nav-link" href="./index.html"><img src="resources/taco-icon.png"
                                                                               alt="Taco Logo" width="40"
                                                                               height="40"></a></li>
         <li class="nav-item"><a class="nav-link" href="menu.html">Menu</a></li>
-        <li class="nav-item"><a class="nav-link"a href="hiring.html">Apply</a></li>
+        <li class="nav-item"><a class="nav-link" a href="hiring.html">Apply</a></li>
     </ul>
 </nav>
 
 
-<main class="min-vw-100 container d-flex flex-column align-items-center justify-content-center flex-grow-1 mt-5 pt-5">
+<main class="container flex-grow-1 p-5 w-75 overflow-y-scroll">
+    <form class="p-4 bg-secondary-subtle rounded shadow d-grid gap-2">
+        <h3 class="mb-3">Apply to be a taco master!</h3>
 
-        <form class=" p-4 bg-light rounded shadow d-grid gap-2">
-            <h3>Apply to be a taco master!</h3>
-            <label>First Name
-                <input name="fName" id="fName" type="text">
-            </label>
-            <label>Last Name
-                <input name="lName" id="lName" type="text">
-            </label>
-            <label>Address 1
-                <input name="address1" id="address1" type="text">
-            </label>
-            <label>Address 2
-                <input name="address2" id="address2" type="text">
-            </label>
-            <label>City
-                <input name="city" id="city" type="text" >
-            </label>
-            <label>State
-                <select name="states" id="states">
-                    <option disabled selected>Select state..</option>
+        <div class="row g-3">
+            <div class="col-md-6">
+                <label for="fName" class="form-label">First Name</label>
+                <input id="fName" name="fName" type="text" class="form-control" />
+            </div>
+            <div class="col-md-6">
+                <label for="lName" class="form-label">Last Name</label>
+                <input id="lName" name="lName" type="text" class="form-control" />
+            </div>
+
+            <div class="col-12">
+                <label for="address1" class="form-label">Address 1</label>
+                <input id="address1" name="address1" type="text" class="form-control" />
+            </div>
+            <div class="col-12">
+                <label for="address2" class="form-label">Address 2</label>
+                <input id="address2" name="address2" type="text" class="form-control" />
+            </div>
+
+            <div class="col-md-6">
+                <label for="city" class="form-label">City</label>
+                <input id="city" name="city" type="text" class="form-control" />
+            </div>
+            <div class="col-md-3">
+                <label for="states" class="form-label">State</label>
+                <select id="states" name="states" class="form-select">
+                    <option disabled selected>Select state...</option>
                     <option value="AZ">AZ</option>
                     <option value="HI">HI</option>
                     <option value="MI">MI</option>
                     <option value="TN">TN</option>
                     <option value="TX">TX</option>
                 </select>
-            </label>
-            <label>Age
-                <input name="age" id="age" type="number">
-            </label>
-            <label>Phone Number
-                <input name="phone" id="phone" type="tel" >
-            </label>
-            <label>Email
-                <input name="email" id="email" type="email">
-            </label>
-            <label>Password
-                <input name="password" id="password" type="password">
-            </label>
-            <label>Marital Status:
-                <input type="radio" name="married" value="single" checked>Single
-                <input type="radio" name="married" value="married">Married
-            </label>
-            <label>Favorite Colors:
-                <input type="checkbox" name="color" value="red">Red
-                <input type="checkbox" name="color" value="blue">Blue
-                <input type="checkbox" name="color" value="green">Green
-                <input type="checkbox" name="color" value="purple">Purple
-                <input type="checkbox" name="color" value="black">Black
-            </label>
-            <label for="info">Additional Info:</label>
-            <textarea name="info" id="info" rows="4" maxlength="30"></textarea>
-            <div>Future character remaining count</div>
-            <div class="formButtonGroup">
-                <button type="reset" class="btn btn-secondary">Reset</button>
-                <button type="submit" class="btn btn-secondary">Submit</button>
+            </div>
+            <div class="col-md-3">
+                <label for="age" class="form-label">Age</label>
+                <input id="age" name="age" type="number" class="form-control" />
             </div>
 
-        </form>
+            <div class="col-md-6">
+                <label for="phone" class="form-label">Phone Number</label>
+                <input id="phone" name="phone" type="tel" class="form-control" />
+            </div>
+            <div class="col-md-6">
+                <label for="email" class="form-label">Email</label>
+                <input id="email" name="email" type="email" class="form-control" />
+            </div>
+
+            <div class="col-12">
+                <label for="password" class="form-label">Password</label>
+                <input id="password" name="password" type="password" class="form-control" />
+            </div>
+
+            <div class="col-12">
+                <label class="form-label d-block">Marital Status</label>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="married" id="single" value="single" checked>
+                    <label class="form-check-label" for="single">Single</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="married" id="married" value="married">
+                    <label class="form-check-label" for="married">Married</label>
+                </div>
+            </div>
+
+            <div class="col-12">
+                <label class="form-label d-block">Favorite Colors</label>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="red" value="red">
+                    <label class="form-check-label" for="red">Red</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="blue" value="blue">
+                    <label class="form-check-label" for="blue">Blue</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="purple" value="purple">
+                    <label class="form-check-label" for="purple">Purple</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="green" value="green">
+                    <label class="form-check-label" for="green">Green</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="orange" value="orange">
+                    <label class="form-check-label" for="orange">Orange</label>
+                </div>
+
+            </div>
+
+            <div class="col-12">
+                <label for="info" class="form-label">Additional Info</label>
+                <textarea id="info" name="info" rows="4" maxlength="30" class="form-control"></textarea>
+                <div id="characterCounter" class="form-text"></div>
+            </div>
+
+            <div class="col-12 d-flex justify-content-end gap-2">
+                <button type="reset" class="btn btn-outline-secondary">Reset</button>
+                <button type="submit" class="btn btn-secondary">Submit</button>
+            </div>
+        </div>
+
+    </form>
 </main>
 
 
-<div class="footer bg-light-subtle d-flex justify-content-center align-items-center p-2">
-    <p>{Tacos} && [Tacos] | J.S. | 2025</p>
+<div class="bg-light-subtle d-flex mt-auto w-100 justify-content-center align-items-center p-2">
+    <p class="m-0">Capstone | 2025</p>
 </div>
 
 </body>

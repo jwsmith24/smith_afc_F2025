@@ -31,6 +31,7 @@ body {
     height: 40vh;
 }
 
+
 /*Use google font for all navbar components and all h1 elements*/
 .navbar > *, h1 {
     font-family: 'Poppins', sans-serif;
@@ -105,5 +106,7 @@ tbody > tr:hover {
     opacity: .9;
     cursor: pointer;
 }
+
+
 
 
