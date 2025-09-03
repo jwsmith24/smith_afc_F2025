@@ -88,7 +88,7 @@ const renderItemCard = () => {
     menuItemDescription.textContent = activeItem.description;
     menuItemPrice.textContent = formatPrice(activeItem.price);
     menuItemImage.src = activeItem.image; // url of the image
-    menuItemImage.alt = `Picture of ${activeItem.name}`;
+    menuItemImage.alt = `Picture of ${activeItem.name}`; // set alt text
 
 }
 
