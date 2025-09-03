@@ -1,9 +1,10 @@
 /*Make defaults nicer*/
+/* use roboto across the website (except where poppins is required)*/
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: sans-serif;
+    font-family: "Roboto Thin", sans-serif;
 }
 
 /*ensure root element takes the full height of the viewport*/
