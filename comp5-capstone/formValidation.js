@@ -14,25 +14,34 @@ const rules = {
         if (Number.isNaN(number)) return "Enter an age between 29-99";
         return number >= 29 && number <= 99 ? null : "Enter an age between 29-99"
     }, // hyphens optional ###-###-####
-    phone: (value) => (/^\d{3}-?\d{3}-?\d{4}$/).test(value) ? null : "Enter a valid 10 digit phone number",
+    phone: (value) => (/^\d{3}-?\d{3}-?\d{4}$/).test(value) ? null : "Enter a valid 10 digit phone number (123-456-7890)",
     // any characters that aren't @ or whitespace, literal @, any characters that aren't @ or whitespace, literal dot, any characters that aren't @ or whitespace
     email: (value) => (/^[^@\s]+@[^@\s]+\.[^@\s]+$/).test(value) ? null : "Enter a valid email",
+    info: (value) => (value.length <= MAX_LENGTH && value.split("\n").length <= MAX_LINES) ? null : "Maximum character and/or line limit reached"
 }
 
-// text area character counter
+// text area character & line counter
 const characterCounter = document.getElementById("characterCounter");
+const lineCounter = document.getElementById("lineCounter");
 const infoTextArea = document.getElementById("info");
-const maxLength = infoTextArea.maxLength; // max length isn't dynamic so can declare here
-characterCounter.textContent = `0/${maxLength} characters used (${maxLength} remaining)` // set the initial value semi-dynamically
+const MAX_LENGTH = 30;
+const MAX_LINES = 4;
+// initialize counter text values
+characterCounter.textContent = `0/${MAX_LENGTH} characters used (${MAX_LENGTH} remaining)` // set the initial value semi-dynamically
+lineCounter.textContent = `0/${MAX_LINES} lines used (${MAX_LINES} remaining)`;
 
 infoTextArea.addEventListener("input", () => {
+    // don't let user enter more characters if max is reached
     const usedCharacters = infoTextArea.value.length;
-    const charactersRemaining = maxLength - usedCharacters;
-    characterCounter.textContent = `${usedCharacters}/${maxLength} characters used (${charactersRemaining} remaining)`;
+    const charactersRemaining = MAX_LENGTH - usedCharacters;
+    characterCounter.textContent = `${usedCharacters}/${MAX_LENGTH} characters used (${charactersRemaining} remaining)`;
+    // determine line count by splitting the text content on each new line character and counting the tokens
+    const usedLines = infoTextArea.value.split("\n").length;
+    lineCounter.textContent = `${usedLines}/${MAX_LINES} lines used (${MAX_LINES - usedLines} remaining)`;
 })
 
 // grab all the inputs
-const inputs = document.querySelectorAll("input, select");
+const inputs = document.querySelectorAll("input, select, textarea");
 
 // apply listeners to all inputs so that user is aware of issues before they submit
 inputs.forEach((input) => {
