@@ -1,7 +1,6 @@
 // validation rules object(key by unique id)
 // separates concerns and is scalable to add more rules
-
-// note: got a little excited before I realized we only had to validate a couple fields with JS
+// note: got a little excited before I realized we only had to validate a couple fields with JS 😬
 const rules = {
     // min length: 1, max length: 20
     fName: (value) => value.trim().length >= 1 && value.trim().length <= 20 ? null : "First name must be between 1-20 characters",
@@ -11,11 +10,12 @@ const rules = {
     states: (value) => ["AZ", "HI", "MI", "TN", "TX"].includes(value) ? null : "Select a valid state",
     age: (value) => {
         const number = Number(value);
-        // handle NaN
+        // handle NaN case
         if (Number.isNaN(number)) return "Enter an age between 29-99";
         return number >= 29 && number <= 99 ? null : "Enter an age between 29-99"
-    }, // hyphens optional
+    }, // hyphens optional ###-###-####
     phone: (value) => (/^\d{3}-?\d{3}-?\d{4}$/).test(value) ? null : "Enter a valid 10 digit phone number",
+    // any characters that aren't @ or whitespace, literal @, any characters that aren't @ or whitespace, literal dot, any characters that aren't @ or whitespace
     email: (value) => (/^[^@\s]+@[^@\s]+\.[^@\s]+$/).test(value) ? null : "Enter a valid email",
 }
 
@@ -49,7 +49,7 @@ inputs.forEach((input) => {
 
 // reference to the form
 const form = document.querySelector("form");
-
+// handle submit event
 form.addEventListener("submit", (event) => {
     event.preventDefault(); // stop the default submission, we'll handle it
 
@@ -105,7 +105,6 @@ function clearError(input) {
 
 // run an input field against its corresponding validator function
 function validateField(input) {
-    console.log('running validation')
     const rule = rules[input.id]; // get the matching rule
     if (!rule) return true; //skip if there's no rule
 
