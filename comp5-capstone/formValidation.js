@@ -5,7 +5,7 @@ const rules = {
     // min length: 1, max length: 20
     fName: (value) => value.trim().length >= 1 && value.trim().length <= 20 ? null : "First name must be between 1-20 characters",
     lName: (value) => value.trim().length >= 1 && value.trim().length <= 20 ? null : "Last name must be between 1-20 characters",
-    address1: (value) => value.trim().length > 0 ? null : "Must provide an address",
+    address1: (value) => value.trim().length > 0 ? null : "Must provide a valid address",
     city: (value) => value.trim().length >= 1 && value.trim().length < 30 ? null : "Enter a city name less than 30 characters",
     states: (value) => ["AZ", "HI", "MI", "TN", "TX"].includes(value) ? null : "Select a valid state",
     age: (value) => {

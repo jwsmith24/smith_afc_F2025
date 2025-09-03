@@ -6,19 +6,20 @@
     font-family: sans-serif;
 }
 
+/*ensure root element takes the full height of the viewport*/
 html, body {
     height: 100%;
 }
 
-body {
-    background-color: cadetblue;
 
-}
-
+/* style the pseudoelement class that displays the error message */
 .error {
-    outline-color: red;
+    display: inline-block;
+    margin-top: 8px;
+    text-wrap: nowrap;
 }
 
+/*Small taco icon to repeat over a red background for a fun background that pops */
 .taco-bg {
     background-image: url("./resources/taco-background-icon.png");
     background-size: 100px 100px;
@@ -27,10 +28,10 @@ body {
     z-index: -99;
 }
 
+/*Styling for the menu item card, limit size to 40% screen height */
 .menu-item {
     height: 40vh;
 }
-
 
 /*Use google font for all navbar components and all h1 elements*/
 .navbar > *, h1 {
@@ -39,73 +40,11 @@ body {
 }
 
 
-.footer {
-    background-color: #ffe8ba;
-}
 
-.bannerImg {
-    display: grid;
-    align-content: center;
 
-}
 
-table {
-    border-collapse: collapse;
-    width: 100%;
-}
 
-th, td {
-    border: 1px solid black;
-    padding: 1rem;
-    text-align: left;
-}
 
-tbody > tr:hover {
-    background-color: darkorange;
-    cursor: pointer;
-}
-
-.menu {
-
-    color: darkorange;
-
-}
-
-.menuContainer {
-    display: grid;
-    justify-items: center;
-    align-content: center;
-    gap: 1rem;
-}
-
-.hiringForm {
-    padding: 1rem;
-    display: grid;
-    gap:1rem;
-    align-content: center;
-}
-
-.hiringContent {
-    display: grid;
-    padding: 1rem;
-    align-items: center;
-}
-
-.formButtonGroup {
-    display: flex;
-    gap:1rem;
-}
-
-.formButtonGroup > button {
-    padding: 4px;
-    border: 1px solid transparent;
-    border-radius: 4px;
-}
-
-.formButtonGroup > button:hover {
-    opacity: .9;
-    cursor: pointer;
-}
 
 
 
