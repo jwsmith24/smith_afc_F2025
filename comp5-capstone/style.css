@@ -29,6 +29,12 @@ html, body {
     z-index: -99;
 }
 
+.index-bg {
+    background-image: url("./resources/better-taco-bg.png");
+    background-size: cover;
+
+}
+
 /*Styling for the menu item card, limit size to 40% screen height */
 .menu-item {
     height: 40vh;
