@@ -25,7 +25,7 @@ function App() {
 
         const response = await fetch(`${BASE_URL}/breeds/image/random`);
         if (!response.ok) {
-            throw new Error("BAd stuff happened with the request")
+            throw new Error("Failed to get a random dog image")
         }
 
         const dogMessage: DogResponse = await response.json();
@@ -37,7 +37,7 @@ function App() {
     async function fetchSpecificBreedImage(breed: string) {
         const response = await fetch(`${BASE_URL}/breed/${breed}/images/random`);
         if (!response.ok) {
-            throw new Error(`Failed to get image of ${breed}`);
+            throw new Error(`Failed to get an image of ${breed}`);
         }
 
         const message: DogResponse = await response.json();
