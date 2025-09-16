@@ -1,0 +1,4 @@
+@import "tailwindcss";
+input, textarea, select {
+    @apply bg-gray-500 text-gray-200 border border-gray-300 rounded;
+}
