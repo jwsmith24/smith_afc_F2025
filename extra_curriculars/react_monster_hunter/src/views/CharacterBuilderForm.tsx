@@ -47,6 +47,7 @@ export default function CharacterBuilderForm() {
           <label>Character Name</label>
           <input
             type="text"
+            maxLength={20}
             placeholder={"Enter a cool name..."}
             onChange={(event: ChangeEvent<HTMLInputElement>) =>
               setFormData((prevData) => ({
