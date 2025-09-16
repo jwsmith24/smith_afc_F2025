@@ -1,13 +1,11 @@
 import { type ChangeEvent, type FormEvent, useEffect, useState } from "react";
-import type { Character } from "../types/character/Character.ts";
 import {
+  type Character,
   CHARACTER_CLASSES,
   type CharacterClass,
-} from "../types/character/CharacterClass.ts";
-import {
   WEAPON_TYPES,
   type WeaponType,
-} from "../types/character/WeaponType.ts";
+} from "../types/character/CharacterSchema.ts";
 
 export default function CharacterBuilderForm() {
   const [formData, setFormData] = useState<Character>({
@@ -80,9 +78,9 @@ export default function CharacterBuilderForm() {
               }))
             }
           >
-            {CHARACTER_CLASSES.map((cc) => (
-              <option value={cc} key={cc}>
-                {cc}
+            {CHARACTER_CLASSES.map((cls) => (
+              <option value={cls} key={cls}>
+                {cls}
               </option>
             ))}
           </select>
