@@ -3,13 +3,14 @@ import {
   type Character,
   CHARACTER_CLASSES,
   type CharacterClass,
+  CharacterSchema,
   WEAPON_TYPES,
   type WeaponType,
 } from "../types/character/CharacterSchema.ts";
 
 export default function CharacterBuilderForm() {
   const [formData, setFormData] = useState<Character>({
-    name: "",
+    name: " ",
     age: 25,
     characterClass: "Mage",
     weapon: "Wand",
@@ -17,17 +18,44 @@ export default function CharacterBuilderForm() {
 
   const [characterString, setCharacterString] = useState("");
 
+  const [errors, setErrors] = useState<Record<string, string>>({});
+
   useEffect(() => {
     setCharacterString(
       formData.name.length != 0
         ? `Playing ${formData.name}, the ${formData.age} year-old ${formData.characterClass} with a ${formData.weapon}!`
         : "Build a character!",
     );
+    validateInputFields();
   }, [formData]);
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    if (!validateInputFields()) return;
+
     console.log("Creating character!", formData);
+  }
+
+  function validateInputFields() {
+    const result = CharacterSchema.safeParse(formData);
+
+    if (!result.success) {
+      const formattedErrors: Record<string, string> = {};
+
+      for (const issue of result.error.issues) {
+        const field = issue.path[0] as keyof Character;
+        if (!formattedErrors[field]) {
+          formattedErrors[field] = issue.message;
+        }
+      }
+
+      setErrors(formattedErrors);
+      console.log(formattedErrors);
+      return false;
+    }
+
+    setErrors({});
+    return true;
   }
 
   return (
@@ -54,6 +82,9 @@ export default function CharacterBuilderForm() {
               }))
             }
           />
+          {errors.name && (
+            <p className={"text-red-400 text-sm"}>{errors.name}</p>
+          )}
         </div>
         <div className={"flex gap-4"}>
           <label>Character Age</label>
@@ -67,6 +98,7 @@ export default function CharacterBuilderForm() {
               }))
             }
           />
+          {errors.age && <p className={"text-red-400 text-sm"}>{errors.age}</p>}
         </div>
         <div className={"flex gap-4"}>
           <label>Class</label>
