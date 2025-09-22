@@ -4,11 +4,13 @@ describe("isPalindrome function basic cases", () => {
     it("returns true for simple palindromes", () => {
         expect(isPalindrome("racecar")).toBe(true);
         expect(isPalindrome("madam")).toBe(true);
+        expect(isPalindrome("bob")).toBe(true);
     });
 
     it("returns false for words that aren't palindromes", () => {
         expect(isPalindrome("postgresql")).toBe(false);
         expect(isPalindrome("typescript")).toBe(false);
+        expect(isPalindrome("apple")).toBe(false);
     });
 
     it("ignores case and whitespace", () => {
