@@ -1,5 +1,6 @@
 import { Outlet } from "react-router";
 import Navbar from "@/components/Navbar.tsx";
+import Footer from "@/components/Footer.tsx";
 
 export default function App() {
   return (
@@ -12,10 +13,8 @@ export default function App() {
         <Outlet />
       </main>
 
-      <footer
-        className={"bg-blue-400 text-center p-4 m-0 text-sm text-gray-600"}
-      >
-        <p>Footer content</p>
+      <footer>
+        <Footer />
       </footer>
     </div>
   );

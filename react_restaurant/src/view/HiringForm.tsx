@@ -48,12 +48,13 @@ export function HiringForm() {
 
   return (
     <div className={"flex flex-col h-full"}>
-      <div className={"p-4 border-b bg-orange-50"}>Hiring Form</div>
+      <div className={"p-4 border-b bg-red-50"}>Hiring Form</div>
       <div className={"flex-1 p-4 overflow-y-auto"}>
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(onSubmit)}
             className={"grid gap-4 p-4 border rounded shadow"}
+            id={"hiring-form"}
           >
             <FormField
               control={form.control}
@@ -232,8 +233,12 @@ export function HiringForm() {
           </form>
         </Form>
       </div>
-      <div className={"p-4 border-t bg-pink-50"}>
-        <Button type={"submit"} form={"hiring-form"}>
+      <div className={"p-4 border-t bg-red-50 w-full"}>
+        <Button
+          type={"submit"}
+          form={"hiring-form"}
+          className={"hover:cursor-pointer"}
+        >
           Apply
         </Button>
       </div>
