@@ -4,7 +4,7 @@ export default function Navbar() {
   return (
     <div className={"bg-blue-400 text-white p-4 shadow-md"}>
       <h1 className={"text-xl font-bold"}>Tacos && Tacos</h1>
-      <nav>
+      <nav className={"flex gap-4"}>
         <Link to={"/"} className={"hover:underline"}>
           Home
         </Link>

@@ -13,17 +13,20 @@ export const HiringDataSchema = z.object({
   address1: z
     .string()
     .min(1, "Address is required")
-    .max(100, "Address cannot be more than 100 characters"),
+    .max(10, "Address cannot be more than 100 characters"),
   city: z
     .string()
     .min(1, "City is required")
     .max(29, "City cannot be longer than 29 characters"),
-  state: z.enum(["HI", "MI", "TX"]),
-  age: z.number(),
+  state: z.enum(["HI", "MI", "TX"], "Select a value in the list"),
+  age: z.number().min(18).max(100),
   phone: z
     .string()
     .min(2, "Phone number is required")
-    .regex(/^\d{3}-\d{3}-\d{4}$/, "Invalid phone number provided"),
+    .regex(
+      /^\d{3}-\d{3}-\d{4}$/,
+      "Invalid phone number provided. Must be in format ###-###-####",
+    ),
   email: z.email("Invalid email address"),
 
   password: z
@@ -35,8 +38,8 @@ export const HiringDataSchema = z.object({
     .regex(/[0-9]/, "Must include at least one number")
     .regex(/[^A-Za-z0-9]/, "Must include at least one special character"),
 
-  married: z.enum(["single", "married"]).default("single"),
+  married: z.enum(["single", "married"]),
 });
 
 // infer type directly from schema
-export type HiringDataSchema = z.infer<typeof HiringDataSchema>;
+export type HiringData = z.infer<typeof HiringDataSchema>;
