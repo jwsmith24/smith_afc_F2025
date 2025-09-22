@@ -2,3 +2,6 @@
 *.DS_Store
 build
 .gradle
+dist
+node_modules
+*.iml

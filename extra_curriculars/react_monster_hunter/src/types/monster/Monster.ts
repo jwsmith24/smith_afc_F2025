@@ -3,4 +3,5 @@ export interface Monster {
   name: string;
   maxHitPoints: number;
   weakness: Element[];
+  hitThing: () => boolean;
 }
