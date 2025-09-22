@@ -1,4 +1,9 @@
-Notes:
+# Steps to run
+1) cd into `palindrome_test` directory
+2) run `npm i` to install required dependencies
+3) run `npm test` to execute the test suite
+
+
 
 ## Jest with TypeScript
 - `jest.config.js` added to tell Jest how it should execute the tests.
