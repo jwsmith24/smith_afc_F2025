@@ -24,7 +24,7 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group.tsx";
 
 const formSchema = HiringDataSchema;
 
-export function HiringForm() {
+export default function HiringForm() {
   const form = useForm<HiringData>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -48,7 +48,9 @@ export function HiringForm() {
 
   return (
     <div className={"flex flex-col h-full"}>
-      <div className={"p-4 border-b bg-red-50"}>Hiring Form</div>
+      <div className={"p-4 border-b bg-red-50 font-bold text-3xl"}>
+        Hiring Form
+      </div>
       <div className={"flex-1 p-4 overflow-y-auto"}>
         <Form {...form}>
           <form
