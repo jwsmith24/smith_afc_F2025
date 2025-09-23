@@ -4,9 +4,10 @@ import burritoIcon from "@/assets/icons/burritos-icon.png";
 import fajitasIcon from "@/assets/icons/fajitas3.jpeg";
 import aquafrescaIcon from "@/assets/icons/aqua-fresca-icon.png";
 import horchataIcon from "@/assets/icons/horchata-icon.png";
+import type { MenuItem } from "@/types/MenuItem.ts";
 
 export default function MenuView() {
-  const menuItems = [
+  const menuItems: MenuItem[] = [
     {
       name: "Tacos",
       description:
