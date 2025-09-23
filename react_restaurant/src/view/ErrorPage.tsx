@@ -6,7 +6,7 @@ export default function ErrorPage() {
   return (
     <div
       className={
-        "flex min-h-screen flex-col items-center justify-center gap-4 "
+        "flex min-h-screen flex-col items-center justify-center gap-4 bg-gray-700"
       }
     >
       <div className={"text-red-400 text-3xl"}>
