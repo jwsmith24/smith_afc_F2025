@@ -1,9 +1,9 @@
 import MenuTable from "@/components/MenuTable.tsx";
 import tacoIcon from "@/assets/icons/taco-icon.png";
-import burritoIcon from "@/assets/images/burritos-icon.png";
-import fajitasIcon from "@/assets/images/fajitas3.jpeg";
-import aquafrescaIcon from "@/assets/images/aqua-fresca-icon.png";
-import horchataIcon from "@/assets/images/horchata-icon.png";
+import burritoIcon from "@/assets/icons/burritos-icon.png";
+import fajitasIcon from "@/assets/icons/fajitas3.jpeg";
+import aquafrescaIcon from "@/assets/icons/aqua-fresca-icon.png";
+import horchataIcon from "@/assets/icons/horchata-icon.png";
 
 export default function MenuView() {
   const menuItems = [
@@ -41,8 +41,14 @@ export default function MenuView() {
     },
   ];
   return (
-    <div className={"flex flex-col gap-6 items-center justify-center h-full"}>
-      <h1 className={"text-4xl font-bold"}>Taco && Taco Specials</h1>
+    <div
+      className={
+        "flex flex-col gap-6 items-center justify-center h-full bg-gray-700 taco-bg"
+      }
+    >
+      <h1 className={"text-4xl font-bold text-white mt-16"}>
+        Taco && Taco Specials
+      </h1>
       <MenuTable menuItems={menuItems} />
     </div>
   );

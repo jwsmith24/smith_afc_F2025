@@ -6,7 +6,6 @@ import { Button } from "@/components/ui/button.tsx";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -47,15 +46,17 @@ export default function HiringForm() {
   }
 
   return (
-    <div className={"flex flex-col h-full"}>
-      <div className={"p-4 border-b bg-red-50 font-bold text-3xl"}>
+    <div className={"flex flex-col bg-gray-700 taco-bg h-full"}>
+      <div className={"p-4 border-b bg-red-200 font-bold text-3xl"}>
         Hiring Form
       </div>
-      <div className={"flex-1 p-4 overflow-y-auto"}>
+      <div className={"flex-1 p-4 text-white overflow-y-auto"}>
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(onSubmit)}
-            className={"grid gap-4 p-4 border rounded shadow"}
+            className={
+              "grid gap-4 p-6 border rounded shadow w-full mx-auto max-w-xl bg-gray-700 opacity-100"
+            }
             id={"hiring-form"}
           >
             <FormField
@@ -67,7 +68,6 @@ export default function HiringForm() {
                   <FormControl>
                     <Input placeholder={"Enter first name.."} {...field} />
                   </FormControl>
-                  <FormDescription>* Required Field</FormDescription>
                   <FormMessage />
                 </FormItem>
               )}
@@ -94,7 +94,6 @@ export default function HiringForm() {
                   <FormControl>
                     <Input placeholder={"Enter address.."} {...field} />
                   </FormControl>
-                  <FormDescription>* Required Field</FormDescription>
                   <FormMessage />
                 </FormItem>
               )}
@@ -108,7 +107,6 @@ export default function HiringForm() {
                   <FormControl>
                     <Input placeholder={"Enter city.."} {...field} />
                   </FormControl>
-                  <FormDescription>* Required Field</FormDescription>
                   <FormMessage />
                 </FormItem>
               )}
@@ -118,7 +116,7 @@ export default function HiringForm() {
               name={"state"}
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>City</FormLabel>
+                  <FormLabel>State</FormLabel>
                   <Select
                     onValueChange={field.onChange}
                     defaultValue={field.value}
@@ -134,7 +132,6 @@ export default function HiringForm() {
                       <SelectItem value={"TX"}>TX</SelectItem>
                     </SelectContent>
                   </Select>
-                  <FormDescription>* Required Field</FormDescription>
                   <FormMessage />
                 </FormItem>
               )}
@@ -154,7 +151,6 @@ export default function HiringForm() {
                       }
                     />
                   </FormControl>
-                  <FormDescription>* Required Field</FormDescription>
                   <FormMessage />
                 </FormItem>
               )}
@@ -168,7 +164,6 @@ export default function HiringForm() {
                   <FormControl>
                     <Input placeholder={"123-456-7890"} {...field} />
                   </FormControl>
-                  <FormDescription>* Required Field</FormDescription>
                   <FormMessage />
                 </FormItem>
               )}
@@ -182,7 +177,6 @@ export default function HiringForm() {
                   <FormControl>
                     <Input placeholder={"example@email.com"} {...field} />
                   </FormControl>
-                  <FormDescription>* Required Field</FormDescription>
                   <FormMessage />
                 </FormItem>
               )}
@@ -192,7 +186,7 @@ export default function HiringForm() {
               name={"password"}
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Email</FormLabel>
+                  <FormLabel>Password</FormLabel>
                   <FormControl>
                     <Input
                       type={"password"}
@@ -200,7 +194,6 @@ export default function HiringForm() {
                       {...field}
                     />
                   </FormControl>
-                  <FormDescription>* Required Field</FormDescription>
                   <FormMessage />
                 </FormItem>
               )}
@@ -227,7 +220,6 @@ export default function HiringForm() {
                       </div>
                     </RadioGroup>
                   </FormControl>
-                  <FormDescription>* Required Field</FormDescription>
                   <FormMessage />
                 </FormItem>
               )}
@@ -235,7 +227,7 @@ export default function HiringForm() {
           </form>
         </Form>
       </div>
-      <div className={"p-4 border-t bg-red-50 w-full"}>
+      <div className={"p-4 border-t bg-red-200 w-full"}>
         <Button
           type={"submit"}
           form={"hiring-form"}

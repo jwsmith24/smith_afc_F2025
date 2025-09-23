@@ -57,6 +57,16 @@ html, body, #root {
     height: 100%;
 }
 
+.taco-bg {
+    background-image: url("/src/assets/icons/taco-background-icon.png");
+    background-repeat: repeat;
+}
+
+input::placeholder, [data-placeholder] {
+    @apply text-gray-200
+}
+
+
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;

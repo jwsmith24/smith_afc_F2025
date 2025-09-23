@@ -9,7 +9,7 @@ export default function App() {
         <Navbar />
       </header>
 
-      <main className={"flex-grow overflow-y-auto"}>
+      <main className={"flex-grow"}>
         <Outlet />
       </main>
 
