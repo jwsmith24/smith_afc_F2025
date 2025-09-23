@@ -6,13 +6,8 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import type { MenuItem } from "@/types/MenuItem.ts";
 
-type MenuItem = {
-  name: string;
-  description: string;
-  price: number;
-  image: string;
-};
 type MenuTableProps = {
   menuItems: MenuItem[];
 };
