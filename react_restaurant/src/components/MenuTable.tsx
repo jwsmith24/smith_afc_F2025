@@ -30,7 +30,7 @@ export default function MenuTable({ menuItems }: MenuTableProps) {
             <TableHead className={"text-white"}>Image</TableHead>
             <TableHead className={"text-white"}>Item Name</TableHead>
             {/* hide description column on small displays */}
-            <TableHead className={"text-white hidden md:block"}>
+            <TableHead className={"text-white hidden md:table-cell"}>
               Description
             </TableHead>
             <TableHead className={"text-white"}>Price</TableHead>
@@ -48,7 +48,7 @@ export default function MenuTable({ menuItems }: MenuTableProps) {
                   />
                 </TableCell>
                 <TableCell>{item.name}</TableCell>
-                <TableCell className={"hidden md:block"}>
+                <TableCell className={"hidden md:table-cell"}>
                   {item.description}
                 </TableCell>
                 <TableCell>{item.price}</TableCell>

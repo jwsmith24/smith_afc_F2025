@@ -6,4 +6,5 @@
 - Used ReactHookForms with Zod for form validation
   - With free types from Zod type inference
   - HiringData type is defined in `types/HiringData.tsx`
-- 
+- Used Tailwind CSS, react-router, and conditional rendering to write my own reusable collapsible 
+  navbar component.
