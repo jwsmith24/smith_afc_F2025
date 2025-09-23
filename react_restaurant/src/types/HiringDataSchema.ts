@@ -13,13 +13,13 @@ export const HiringDataSchema = z.object({
   address1: z
     .string()
     .min(1, "Address is required")
-    .max(10, "Address cannot be more than 100 characters"),
+    .max(100, "Address cannot be more than 100 characters"),
   city: z
     .string()
     .min(1, "City is required")
     .max(29, "City cannot be longer than 29 characters"),
   state: z.enum(["HI", "MI", "TX"], "Select a value in the list"),
-  age: z.number().min(18).max(100),
+  age: z.number().min(25).max(89),
   phone: z
     .string()
     .min(2, "Phone number is required")

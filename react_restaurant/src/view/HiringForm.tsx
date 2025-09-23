@@ -32,8 +32,8 @@ export default function HiringForm() {
       address1: "",
       city: "",
       state: undefined,
-      age: 21,
-      phone: "123-456-7890",
+      age: 25,
+      phone: "",
       email: "",
       password: "",
       married: "single",
@@ -120,6 +120,7 @@ export default function HiringForm() {
                   <Select
                     onValueChange={field.onChange}
                     defaultValue={field.value}
+                    value={field.value ?? ""}
                   >
                     <FormControl>
                       <SelectTrigger>
@@ -227,13 +228,21 @@ export default function HiringForm() {
           </form>
         </Form>
       </div>
-      <div className={"p-4 border-t bg-red-200 w-full"}>
+      <div className={"p-4 border-t bg-red-200 w-full flex gap-4"}>
         <Button
           type={"submit"}
           form={"hiring-form"}
           className={"hover:cursor-pointer"}
         >
           Apply
+        </Button>
+        <Button
+          type={"reset"}
+          form={"hiring-form"}
+          className={"hover:cursor-pointer"}
+          onClick={() => form.reset()}
+        >
+          Reset
         </Button>
       </div>
     </div>
