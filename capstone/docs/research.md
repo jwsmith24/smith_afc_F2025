@@ -6,6 +6,7 @@ Additional frontend tooling:
 - **Vite** for its developer friendly features such as Hot Module Replacement (HMR) for instant 
   visual feedback on UI changes, an instant development server, and optimized bundling for 
   production code.
+- **React Router** for client-side routing
 - **Shadcn** provides professional React components that are full compliant with accessibility 
   standards, styled with TailwindCSS, and the developer owns the code to easily modify 
   components if necessary without being fully dependent on an external dependency.
