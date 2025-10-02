@@ -30,7 +30,7 @@ html, body {
 }
 
 .index-bg {
-    background-image: url("./resources/better-taco-bg.png");
+    background-image: url("../react_restaurant/src/assets/images/better-taco-bg.png");
     background-size: cover;
 
 }

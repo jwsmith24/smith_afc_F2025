@@ -22,3 +22,9 @@
   - HiringData type is defined in `types/HiringDataSchema.tsx`
 - Used Tailwind CSS, react-router, and conditional rendering to write my own reusable collapsible 
   navbar component.
+
+## Docker
+
+Experimented with deploying the React app to a Docker container that our platform engineers can 
+host on their servers. Utilized a multi-stage build to use the Node runtime to build the project,
+and then toss it out to only serve the built static files via an nginx image.

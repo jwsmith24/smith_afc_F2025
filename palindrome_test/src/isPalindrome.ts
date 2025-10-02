@@ -1,5 +1,4 @@
 export function isPalindrome(word: string):boolean {
-
     // remove everything that's not an alphanumeric character, replace with empty string
     const normalizedWord = word.toLowerCase().replace(/[^a-z0-9]/g, "");
     console.log(`Normalized to: ${normalizedWord}`)

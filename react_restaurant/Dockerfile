@@ -1,4 +1,21 @@
-FROM ubuntu:latest
-LABEL authors="j2473393"
+# Build React app
+FROM node:22 AS build
 
-ENTRYPOINT ["top", "-b"]
+WORKDIR /app
+COPY package*.json ./
+RUN npm install
+COPY . .
+RUN npm run build
+
+## static files are built -> throw the node stage away
+# Serve with nginx
+FROM nginx:alpine
+
+COPY --from=build /app/dist /usr/share/nginx/html
+
+## Copy nginx config
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+
+
+EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]
