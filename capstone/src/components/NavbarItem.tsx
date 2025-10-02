@@ -10,9 +10,7 @@ export default function NavbarItem({ itemName, path }: NavItem) {
     <NavigationMenuItem>
       <NavigationMenuLink asChild>
         <Link to={path}>
-          <h2 className={"hover:text-forgeOrange active:opacity-85"}>
-            {itemName}
-          </h2>
+          <h2 className={"active:opacity-85"}>{itemName}</h2>
         </Link>
       </NavigationMenuLink>
     </NavigationMenuItem>
