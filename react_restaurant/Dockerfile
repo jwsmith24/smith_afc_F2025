@@ -1,5 +1,5 @@
 # Build React app
-FROM node:22 AS build
+FROM --platform=linux/amd64 node:22 AS build
 
 WORKDIR /app
 COPY package*.json ./
