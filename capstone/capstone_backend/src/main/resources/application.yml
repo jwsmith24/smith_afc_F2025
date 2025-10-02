@@ -1,0 +1,8 @@
+spring:
+  application:
+    name: capstone_backend
+
+  datasource:
+    username: brightforge
+    password: root
+    url: jdbc:postgresql://localhost:5437/brightforge_db

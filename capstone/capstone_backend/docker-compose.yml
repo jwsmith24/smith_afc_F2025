@@ -1,0 +1,16 @@
+
+services:
+  db:
+    image: postgres
+    container_name: brightforge-postgres
+    restart: always
+    environment:
+      POSTGRES_USER: brightforge
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: brightforge_db
+    ports:
+      - "5437:5432"
+    volumes:
+      - brightforge_data:/var/lib/postgresql/data
+volumes:
+  brightforge_data:

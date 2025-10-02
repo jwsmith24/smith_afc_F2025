@@ -15,6 +15,10 @@ Additional frontend tooling:
   actually used to keep the footprint small.
 - **TypeScript** and **Zod** for type checking, runtime validation, and type inference via schemas.
 
+### Color Palette / Typography
+A tech-themed industrial color palette was selected for the project with typography that also 
+matches the theme of modern industrial innovation.
+
 ## Database
 A Docker container running a PostgreSQL image will be utilized for the database. It will be 
 managed with Flyway migrations on the backend.
@@ -38,7 +42,7 @@ Key backend tools/components:
 
 
 ## Protocol
-The frontend and backend will communicate via a RESTful API over HTTP. See [the API docs](api.md) 
+The frontend and backend will communicate via a RESTful API over HTTP. See [the API docs](../api.md) 
 
 ## Security
 Secrets such as database credentials will be protected using environment variables to keep 
