@@ -1,5 +1,6 @@
 package dev.jake.capstone_backend.widget.models;
 
+import dev.jake.capstone_backend.util.BaseEntity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -11,9 +12,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @AllArgsConstructor
-public class Rating {
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class Rating extends BaseEntity {
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "widget_id", nullable = false)
@@ -22,6 +21,5 @@ public class Rating {
     @Column(nullable = false)
     private Integer score;
 
-    @Column(columnDefinition = "text")
     private String comment;
 }

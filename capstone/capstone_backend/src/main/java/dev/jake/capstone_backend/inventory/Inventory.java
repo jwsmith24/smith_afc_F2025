@@ -1,5 +1,6 @@
 package dev.jake.capstone_backend.inventory;
 
+import dev.jake.capstone_backend.util.BaseEntity;
 import dev.jake.capstone_backend.widget.models.Variant;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -12,11 +13,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @Getter
 @Setter
-public class Inventory {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class Inventory extends BaseEntity {
 
     @OneToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "variant_id", nullable = false)

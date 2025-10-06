@@ -2,6 +2,7 @@ package dev.jake.capstone_backend.widget.models;
 
 
 import dev.jake.capstone_backend.inventory.Inventory;
+import dev.jake.capstone_backend.util.BaseEntity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -13,10 +14,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @Getter
 @Setter
-public class Variant {
-
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class Variant extends BaseEntity {
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "widget_id", nullable = false)
