@@ -4,7 +4,7 @@ import Footer from "@/components/Footer.tsx";
 
 function App() {
   return (
-    <div className={"bg-slateGray h-screen w-screen flex flex-col"}>
+    <div className={"bg-slateGray h-full w-full min-w-[400px] flex flex-col"}>
       <Navbar />
       <Outlet />
       <Footer />

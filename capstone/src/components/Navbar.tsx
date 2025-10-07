@@ -28,6 +28,7 @@ export default function Navbar() {
       className={
         "bg-midnightSteel w-full p-4 text-brightSilver flex items-center justify-between"
       }
+      id={"navBar"}
     >
       <NavigationMenu>
         <NavigationMenuList>
@@ -40,7 +41,11 @@ export default function Navbar() {
           ))}
         </NavigationMenuList>
       </NavigationMenu>
-      <Input type={"text"} className={"w-1/3"} placeholder={"Search..."} />
+      <Input
+        type={"text"}
+        className={"hidden sm:block max-w-1/4 mr-8"}
+        placeholder={"Search..."}
+      />
     </div>
   );
 }

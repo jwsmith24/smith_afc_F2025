@@ -1,30 +1,40 @@
-import type { Widget } from "@/types/Widget.ts";
 import WidgetCard from "@/components/WidgetCard.tsx";
+import { Button } from "@/components/ui/button.tsx";
+import { mockInventory } from "@/lib/seed-widgets.ts";
 
 export default function Inventory() {
-  const mockInventory: Widget[] = [
-    {
-      name: "Test Product 1",
-      description: "very cool thing",
-    },
-    {
-      name: "Test Product 2",
-      description: "another very cool thing",
-    },
-    {
-      name: "Test Product 3",
-      description: "yet another very cool thing",
-    },
-  ];
-
+  const backToTop = () => {
+    const top = document.getElementById("navBar");
+    if (top) {
+      top.scrollIntoView({ behavior: "smooth" });
+    }
+  };
   return (
-    <>
+    <div className={"flex flex-col h-screen"}>
+      <section className={"p-4 border-b sticky top-0 bg-slateGray z-10"}>
+        <Button className={"cursor-pointer"}>New Widget</Button>
+      </section>
       {/*grid container*/}
-      <div className={"grid h-full"}>
-        {mockInventory.map((widget) => (
-          <WidgetCard widget={widget} key={widget.id} />
+      <div
+        className={
+          "grid flex-1 gap-8 m-4 " +
+          "grid-cols-1 " +
+          "sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 " +
+          " overflow-y-auto"
+        }
+      >
+        {mockInventory.map((widget, index) => (
+          <WidgetCard
+            widget={widget}
+            key={widget.id ?? `${widget.name}-${index}`}
+          />
         ))}
       </div>
-    </>
+      <section className={"flex items-center justify-center p-2"}>
+        <Button className={"cursor-pointer"} onClick={backToTop}>
+          Back to Top
+        </Button>
+      </section>
+    </div>
   );
 }
