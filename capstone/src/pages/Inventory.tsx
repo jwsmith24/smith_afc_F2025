@@ -10,7 +10,7 @@ export default function Inventory() {
     }
   };
   return (
-    <div className={"flex flex-col h-screen"}>
+    <div className={"flex flex-col bg-slateGray"}>
       <section className={"p-4 border-b sticky top-0 bg-slateGray z-10"}>
         <Button className={"cursor-pointer"}>New Widget</Button>
       </section>

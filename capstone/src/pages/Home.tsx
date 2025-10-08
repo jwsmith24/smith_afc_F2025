@@ -5,36 +5,32 @@ export default function Home() {
   const navigate = useNavigate();
 
   return (
-    <>
+    <div className={"flex flex-col h-full items-center justify-center"}>
+      <img
+        src="/logo-only.png"
+        alt="brightforge logo"
+        className={"w-1/3 hover:cursor-pointer"}
+        onClick={() => navigate("/about")}
+      />
       <div
-        className={"flex flex-col h-full w-full items-center justify-center"}
+        className={
+          "flex flex-col gap-4 items-center border border-transparent p-4 " +
+          "rounded-xl bg-midnightSteel shadow-xl"
+        }
       >
-        <img
-          src="/logo-only.png"
-          alt="brightforge logo"
-          className={"w-1/3 hover:cursor-pointer"}
-          onClick={() => navigate("/about")}
-        />
-        <div
+        <h1 className={"text-brightSilver"}>Welcome to Brightforge</h1>
+        <Button
           className={
-            "flex flex-col gap-4 items-center border border-transparent p-4 " +
-            "rounded-xl bg-midnightSteel shadow-xl"
+            "x-2 py-1 rounded-lg " +
+            "hover:cursor-pointer active:opacity-70 hover:scale-105 " +
+            "animate ease-in-out transition-all font-semibold" +
+            "shadow-lg"
           }
+          onClick={() => navigate("/inventory")}
         >
-          <h1 className={"text-brightSilver"}>Welcome to Brightforge</h1>
-          <Button
-            className={
-              "x-2 py-1 rounded-lg " +
-              "hover:cursor-pointer active:opacity-70 hover:scale-105 " +
-              "animate ease-in-out transition-all font-semibold" +
-              "shadow-lg"
-            }
-            onClick={() => navigate("/inventory")}
-          >
-            Behold Innovation
-          </Button>
-        </div>
+          Behold Innovation
+        </Button>
       </div>
-    </>
+    </div>
   );
 }

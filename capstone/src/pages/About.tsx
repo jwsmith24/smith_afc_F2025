@@ -49,8 +49,8 @@ export default function About() {
           >
             <h2>Core Features</h2>
             <ul className={"list-disc ml-4"}>
-              {coreFeatures.map((feature) => (
-                <li>{feature}</li>
+              {coreFeatures.map((feature, index) => (
+                <li key={index}>{feature}</li>
               ))}
             </ul>
           </section>
