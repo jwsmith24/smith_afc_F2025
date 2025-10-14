@@ -1,6 +1,7 @@
 import WidgetCard from "@/components/WidgetCard.tsx";
 import { Button } from "@/components/ui/button.tsx";
 import { mockInventory } from "@/lib/seed-widgets.ts";
+import { useWidgets } from "@/hooks/useWidgets.ts";
 
 export default function Inventory() {
   const backToTop = () => {
@@ -9,6 +10,9 @@ export default function Inventory() {
       top.scrollIntoView({ behavior: "smooth" });
     }
   };
+
+  const { data: widgets, loading, error } = useWidgets();
+
   return (
     <div className={"flex flex-col bg-slateGray"}>
       <section className={"p-4 border-b sticky top-0 bg-slateGray z-10"}>
@@ -23,12 +27,21 @@ export default function Inventory() {
           " overflow-y-auto"
         }
       >
-        {mockInventory.map((widget, index) => (
-          <WidgetCard
-            widget={widget}
-            key={widget.id ?? `${widget.name}-${index}`}
-          />
-        ))}
+        {loading && <div>Loading...</div>}
+        {error && (
+          <div>
+            {error.name}: {error.message}
+          </div>
+        )}
+        {!loading && widgets?.length === 0 && <div>Add some widgets</div>}
+        {!loading &&
+          !error &&
+          mockInventory.map((widget, index) => (
+            <WidgetCard
+              widget={widget}
+              key={widget.id ?? `${widget.name}-${index}`}
+            />
+          ))}
       </div>
       <section className={"flex items-center justify-center p-2"}>
         <Button className={"cursor-pointer"} onClick={backToTop}>

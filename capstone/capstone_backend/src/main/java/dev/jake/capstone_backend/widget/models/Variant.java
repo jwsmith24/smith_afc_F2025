@@ -22,7 +22,6 @@ public class Variant extends BaseEntity {
 
     private String color;
     private String size;
-    private String style;
 
     @OneToOne(mappedBy = "variant", cascade = CascadeType.ALL, orphanRemoval = true)
     private Inventory inventory;

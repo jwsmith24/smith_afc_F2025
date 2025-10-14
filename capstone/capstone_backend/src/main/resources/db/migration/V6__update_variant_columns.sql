@@ -1,0 +1,2 @@
+ALTER TABLE variant
+DROP COLUMN IF EXISTS style;

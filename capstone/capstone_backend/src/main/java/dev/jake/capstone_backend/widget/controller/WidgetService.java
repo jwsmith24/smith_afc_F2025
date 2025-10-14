@@ -1,0 +1,107 @@
+package dev.jake.capstone_backend.widget.controller;
+
+import dev.jake.capstone_backend.widget.controller.dto.requests.AddNewRatingRequest;
+import dev.jake.capstone_backend.widget.controller.dto.requests.CreateNewWidgetRequest;
+import dev.jake.capstone_backend.widget.controller.dto.requests.UpdateRatingRequest;
+import dev.jake.capstone_backend.widget.controller.dto.responses.RatingDto;
+import dev.jake.capstone_backend.widget.controller.dto.responses.WidgetDto;
+import dev.jake.capstone_backend.widget.controller.dto.util.WidgetMapper;
+import dev.jake.capstone_backend.widget.controller.exceptions.RatingNotFoundException;
+import dev.jake.capstone_backend.widget.controller.exceptions.WidgetNotFoundException;
+import dev.jake.capstone_backend.widget.models.Rating;
+import dev.jake.capstone_backend.widget.models.Widget;
+import dev.jake.capstone_backend.widget.repos.RatingRepository;
+import dev.jake.capstone_backend.widget.repos.WidgetRepository;
+import jakarta.transaction.Transactional;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+@Service
+public class WidgetService {
+
+    private final WidgetRepository widgetRepository;
+    private final RatingRepository ratingRepository;
+
+
+    public WidgetService(WidgetRepository widgetRepository, RatingRepository ratingRepository) {
+        this.widgetRepository = widgetRepository;
+        this.ratingRepository = ratingRepository;
+    }
+
+    public Widget createWidget(CreateNewWidgetRequest request) {
+        Widget newWidget = new Widget();
+        newWidget.setName(request.name());
+        newWidget.setDescription(request.description());
+
+        return widgetRepository.save(newWidget);
+    }
+
+    public List<WidgetDto> getAllWidgets() {
+
+        List<Widget> widgets = widgetRepository.findAll();
+        return widgets.stream().map(WidgetMapper::toDto).toList();
+    }
+
+    public WidgetDto getWidgetById(Long widgetId) {
+
+        Widget widget = widgetRepository.findById(widgetId).orElseThrow(() -> new WidgetNotFoundException(widgetId));
+
+
+        return WidgetMapper.toDto(widget);
+    }
+
+    @Transactional
+    public Rating addRating(Long widgetId, AddNewRatingRequest request) {
+        Widget widget =
+                widgetRepository.findById(widgetId).orElseThrow(() -> new WidgetNotFoundException(widgetId));
+
+        Rating rating = new Rating();
+        rating.setWidget(widget);
+        rating.setScore(request.score());
+        rating.setComment(request.comment());
+
+        widget.addRating(rating);
+
+        ratingRepository.saveAndFlush(rating);
+        return rating;
+    }
+
+
+    @Transactional
+    public Rating updateRating(Long widgetId, Long ratingId, UpdateRatingRequest request) {
+        Widget widget =
+                widgetRepository.findById(widgetId).orElseThrow(() -> new WidgetNotFoundException(widgetId));
+
+        Rating rating;
+
+        if (widget.getRatings().isEmpty()) {
+            rating = new Rating();
+            widget.addRating(rating);
+        } else {
+            rating = widget.getRatings().stream()
+                    .filter(r -> r.getId().equals(ratingId))
+                    .findFirst()
+                    .orElseThrow(() -> new RatingNotFoundException(ratingId));
+        }
+
+        if (request.score() != null) rating.setScore(request.score());
+        if (request.comment() != null) rating.setComment(request.comment());
+
+
+        ratingRepository.saveAndFlush(rating);
+
+        return rating;
+    }
+
+    public List<RatingDto> getRatings(Long widgetId) {
+        Widget widget =
+                widgetRepository.findById(widgetId).orElseThrow(() -> new WidgetNotFoundException(widgetId));
+
+
+        return widget.getRatings()
+                .stream()
+                .map(WidgetMapper::toDto)
+        .toList();
+    }
+}

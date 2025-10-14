@@ -1,0 +1,6 @@
+package dev.jake.capstone_backend.widget.controller.dto.responses;
+
+import java.util.List;
+
+public record WidgetDto(Long id, String name, String description, Double averageRating) {
+}

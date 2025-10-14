@@ -13,7 +13,11 @@ import lombok.Setter;
 @AllArgsConstructor
 @Getter
 @Setter
-public class Inventory extends BaseEntity {
+public class Inventory {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @OneToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "variant_id", nullable = false)

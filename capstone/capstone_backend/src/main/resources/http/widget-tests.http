@@ -1,0 +1,46 @@
+### Create Widget
+POST http://localhost:8080/api/v1/widgets
+Content-Type: application/json
+
+{
+  "name": "the doug",
+  "description": "WOW what a cool widget"
+}
+
+### Get all widgets
+GET http://localhost:8080/api/v1/widgets
+
+### Get widget by id
+GET http://localhost:8080/api/v1/widgets/2
+
+### Get widget by id (bad id)
+GET http://localhost:8080/api/v1/widgets/99
+
+### Add rating to widget
+POST http://localhost:8080/api/v1/widgets/2/ratings
+Content-Type: application/json
+
+{
+  "score": 1,
+  "comment": "Am I persisted??"
+}
+
+### Update rating score
+PATCH http://localhost:8080/api/v1/widgets/2/ratings/7
+Content-Type: application/json
+
+{
+  "score": 5
+}
+
+### Update rating score and comments
+PATCH http://localhost:8080/api/v1/widgets/2/ratings/7
+Content-Type: application/json
+
+{
+  "score": 4,
+  "comment": "I AM UPDATED!"
+}
+
+### Get all ratings for widget
+GET http://localhost:8080/api/v1/widgets/2/ratings
