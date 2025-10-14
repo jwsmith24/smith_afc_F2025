@@ -25,7 +25,6 @@ export default function WidgetCard({ widget }: WidgetCardProps) {
       >
         <h2>{widget.name}</h2>
         <p className={"italic"}>{widget.description}</p>
-        <p>Total Quantity: {widget.totalQuantity ?? "Not Available"}</p>
         <p className={"font-bold"}>
           Avg Rating: {widget.averageRating ?? "Not rated yet"}
         </p>

@@ -3,5 +3,4 @@ export type Widget = {
   description: string;
   id?: number;
   averageRating?: number;
-  totalQuantity?: number;
 };
