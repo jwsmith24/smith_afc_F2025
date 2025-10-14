@@ -6,6 +6,7 @@ import { BrowserRouter, Route, Routes } from "react-router";
 import Inventory from "@/pages/Inventory.tsx";
 import Home from "@/pages/Home.tsx";
 import About from "@/pages/About.tsx";
+import CreateWidgetForm from "@/components/CreateWidgetForm.tsx";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
@@ -15,6 +16,7 @@ createRoot(document.getElementById("root")!).render(
           <Route path={"/"} element={<Home />} />
           <Route path={"/inventory"} element={<Inventory />} />
           <Route path={"/about"} element={<About />} />
+          <Route path={"/test-form"} element={<CreateWidgetForm />} />
         </Route>
       </Routes>
     </BrowserRouter>
