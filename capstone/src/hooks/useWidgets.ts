@@ -3,7 +3,7 @@ import type { Widget } from "@/types/Widget.ts";
 import { getWidgets } from "@/api/widgets.ts";
 
 export function useWidgets() {
-  const [data, setData] = useState<Widget[] | null>(null);
+  const [data, setData] = useState<Widget[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<Error | null>(null);
 

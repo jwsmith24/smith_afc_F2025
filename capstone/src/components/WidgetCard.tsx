@@ -10,6 +10,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import WidgetVariantsTable from "@/components/WIdgetVariantsTable.tsx";
 
 interface WidgetCardProps {
   widget: Widget;
@@ -26,13 +27,13 @@ export default function WidgetCard({ widget }: WidgetCardProps) {
         <p className={"italic"}>{widget.description}</p>
         <p>Total Quantity: {widget.totalQuantity ?? "Not Available"}</p>
         <p className={"font-bold"}>
-          Avg Rating: {widget.rating ?? "Not rated yet"}
+          Avg Rating: {widget.averageRating ?? "Not rated yet"}
         </p>
 
         <section className={"flex justify-between"}>
           <img src="/src/assets/react.svg" alt="widget image" />
           <Dialog>
-            <DialogTrigger>
+            <DialogTrigger asChild>
               <Button
                 className={
                   "cursor-pointer bg-limeGlow hover:bg-limeGlow hover:opacity-85 text-black"
@@ -48,9 +49,10 @@ export default function WidgetCard({ widget }: WidgetCardProps) {
                   These are the variants of {widget.name}
                 </DialogDescription>
               </DialogHeader>
-              <article>hi</article>
+              {/*todo: add table component to list variants with details*/}
+              <WidgetVariantsTable />
               <DialogFooter>
-                <DialogClose>
+                <DialogClose asChild>
                   <Button
                     className={
                       "bg-electricBlue hover:bg-electricBlue cursor-pointer hover:opacity-95"

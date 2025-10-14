@@ -3,8 +3,8 @@ POST http://localhost:8080/api/v1/widgets
 Content-Type: application/json
 
 {
-  "name": "the doug",
-  "description": "WOW what a cool widget"
+  "name": "the amr",
+  "description": "it's timeeee for a widget"
 }
 
 ### Get all widgets
@@ -17,12 +17,12 @@ GET http://localhost:8080/api/v1/widgets/2
 GET http://localhost:8080/api/v1/widgets/99
 
 ### Add rating to widget
-POST http://localhost:8080/api/v1/widgets/2/ratings
+POST http://localhost:8080/api/v1/widgets/3/ratings
 Content-Type: application/json
 
 {
-  "score": 1,
-  "comment": "Am I persisted??"
+  "score": 5,
+  "comment": "Perfection"
 }
 
 ### Update rating score

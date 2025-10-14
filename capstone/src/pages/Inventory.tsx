@@ -1,6 +1,5 @@
 import WidgetCard from "@/components/WidgetCard.tsx";
 import { Button } from "@/components/ui/button.tsx";
-import { mockInventory } from "@/lib/seed-widgets.ts";
 import { useWidgets } from "@/hooks/useWidgets.ts";
 
 export default function Inventory() {
@@ -33,10 +32,13 @@ export default function Inventory() {
             {error.name}: {error.message}
           </div>
         )}
-        {!loading && widgets?.length === 0 && <div>Add some widgets</div>}
+        {!loading && !error && widgets?.length === 0 && (
+          <div>Add some widgets</div>
+        )}
         {!loading &&
           !error &&
-          mockInventory.map((widget, index) => (
+          widgets?.length > 0 &&
+          widgets.map((widget, index) => (
             <WidgetCard
               widget={widget}
               key={widget.id ?? `${widget.name}-${index}`}
