@@ -1,16 +1,5 @@
 import type { Widget } from "@/types/Widget.ts";
-import { Button } from "@/components/ui/button.tsx";
-import {
-  Dialog,
-  DialogClose,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
-import WidgetVariantsTable from "@/components/WIdgetVariantsTable.tsx";
+import VariantDialog from "@/components/VariantDialog.tsx";
 
 interface WidgetCardProps {
   widget: Widget;
@@ -31,38 +20,9 @@ export default function WidgetCard({ widget }: WidgetCardProps) {
 
         <section className={"flex justify-between"}>
           <img src="/src/assets/react.svg" alt="widget image" />
-          <Dialog>
-            <DialogTrigger asChild>
-              <Button
-                className={
-                  "cursor-pointer bg-limeGlow hover:bg-limeGlow hover:opacity-85 text-black"
-                }
-              >
-                View Variants
-              </Button>
-            </DialogTrigger>
-            <DialogContent className={""}>
-              <DialogHeader>
-                <DialogTitle>Variant</DialogTitle>
-                <DialogDescription>
-                  These are the variants of {widget.name}
-                </DialogDescription>
-              </DialogHeader>
-              {/*todo: add table component to list variants with details*/}
-              <WidgetVariantsTable />
-              <DialogFooter>
-                <DialogClose asChild>
-                  <Button
-                    className={
-                      "bg-electricBlue hover:bg-electricBlue cursor-pointer hover:opacity-95"
-                    }
-                  >
-                    Close
-                  </Button>
-                </DialogClose>
-              </DialogFooter>
-            </DialogContent>
-          </Dialog>
+          <div>
+            <VariantDialog widgetName={widget.name} />
+          </div>
         </section>
       </article>
     </>

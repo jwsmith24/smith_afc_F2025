@@ -2,13 +2,17 @@ package dev.jake.capstone_backend.widget.controller;
 
 import dev.jake.capstone_backend.widget.controller.dto.requests.AddNewRatingRequest;
 import dev.jake.capstone_backend.widget.controller.dto.requests.CreateNewWidgetRequest;
+import dev.jake.capstone_backend.widget.controller.dto.requests.CreateVariantRequest;
 import dev.jake.capstone_backend.widget.controller.dto.requests.UpdateRatingRequest;
 import dev.jake.capstone_backend.widget.controller.dto.responses.RatingDto;
+import dev.jake.capstone_backend.widget.controller.dto.responses.VariantDto;
 import dev.jake.capstone_backend.widget.controller.dto.responses.WidgetDto;
 import dev.jake.capstone_backend.widget.controller.dto.util.WidgetMapper;
 import dev.jake.capstone_backend.widget.models.Rating;
+import dev.jake.capstone_backend.widget.models.Variant;
 import dev.jake.capstone_backend.widget.models.Widget;
 import jakarta.validation.Valid;
+import org.aspectj.weaver.ast.Var;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -99,6 +103,32 @@ public class WidgetController {
         List<RatingDto> ratings = widgetService.getRatings(widgetId);
 
         return ResponseEntity.ok(ratings);
+    }
+
+    // VARIANTS
+
+    @GetMapping("/{widgetId}/variants")
+    public ResponseEntity<List<VariantDto>> getVariantsForWidget(@PathVariable Long widgetId) {
+
+        List<VariantDto> variants = widgetService.getVariants(widgetId);
+
+        return ResponseEntity.ok(variants);
+
+    }
+
+    @PostMapping("/{widgetId}/variants")
+    public ResponseEntity<VariantDto> createWidgetVariant(@PathVariable Long widgetId,
+                                                          @RequestBody CreateVariantRequest request) {
+       Variant variant = widgetService.createVariant(widgetId, request);
+
+       URI location = ServletUriComponentsBuilder.fromCurrentRequest()
+                .path("/{variantId}")
+                .buildAndExpand(variant.getId())
+                .toUri();
+
+
+       return ResponseEntity.created(location).body(WidgetMapper.toDto(variant));
+
     }
 
 }

@@ -27,5 +27,6 @@ public class Inventory {
     private Integer quantity;
 
     @Column(nullable = false)
-    private String status;
+    @Enumerated(EnumType.STRING)
+    private InventoryStatus status;
 }

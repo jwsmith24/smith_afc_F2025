@@ -1,6 +1,7 @@
 import WidgetCard from "@/components/WidgetCard.tsx";
 import { Button } from "@/components/ui/button.tsx";
 import { useWidgets } from "@/hooks/useWidgets.ts";
+import CreateWidgetDialog from "@/components/CreateWidgetDialog.tsx";
 
 export default function Inventory() {
   const backToTop = () => {
@@ -15,7 +16,7 @@ export default function Inventory() {
   return (
     <div className={"flex flex-col bg-slateGray"}>
       <section className={"p-4 border-b sticky top-0 bg-slateGray z-10"}>
-        <Button className={"cursor-pointer"}>New Widget</Button>
+        <CreateWidgetDialog />
       </section>
       {/*grid container*/}
       <div

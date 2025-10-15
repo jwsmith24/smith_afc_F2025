@@ -7,6 +7,7 @@ import Inventory from "@/pages/Inventory.tsx";
 import Home from "@/pages/Home.tsx";
 import About from "@/pages/About.tsx";
 import CreateWidgetForm from "@/components/CreateWidgetForm.tsx";
+import { Toaster } from "sonner";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
@@ -19,6 +20,7 @@ createRoot(document.getElementById("root")!).render(
           <Route path={"/test-form"} element={<CreateWidgetForm />} />
         </Route>
       </Routes>
+      <Toaster richColors position={"bottom-right"} />
     </BrowserRouter>
   </StrictMode>,
 );

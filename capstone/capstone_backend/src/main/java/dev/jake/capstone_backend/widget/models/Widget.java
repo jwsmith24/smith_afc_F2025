@@ -38,7 +38,13 @@ public class Widget extends BaseEntity {
 
     // helpers
     public void addRating(Rating rating) {
-        this.ratings.add(rating);
+        ratings.add(rating);
+        rating.setWidget(this);
+    }
+
+    public void addVariant(Variant variant) {
+        variants.add(variant);
+        variant.setWidget(this);
     }
 
 

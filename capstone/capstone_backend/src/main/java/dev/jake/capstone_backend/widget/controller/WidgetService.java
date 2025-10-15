@@ -1,14 +1,20 @@
 package dev.jake.capstone_backend.widget.controller;
 
+import dev.jake.capstone_backend.inventory.Inventory;
+import dev.jake.capstone_backend.inventory.InventoryRepository;
+import dev.jake.capstone_backend.inventory.InventoryStatus;
 import dev.jake.capstone_backend.widget.controller.dto.requests.AddNewRatingRequest;
 import dev.jake.capstone_backend.widget.controller.dto.requests.CreateNewWidgetRequest;
+import dev.jake.capstone_backend.widget.controller.dto.requests.CreateVariantRequest;
 import dev.jake.capstone_backend.widget.controller.dto.requests.UpdateRatingRequest;
 import dev.jake.capstone_backend.widget.controller.dto.responses.RatingDto;
+import dev.jake.capstone_backend.widget.controller.dto.responses.VariantDto;
 import dev.jake.capstone_backend.widget.controller.dto.responses.WidgetDto;
 import dev.jake.capstone_backend.widget.controller.dto.util.WidgetMapper;
 import dev.jake.capstone_backend.widget.controller.exceptions.RatingNotFoundException;
 import dev.jake.capstone_backend.widget.controller.exceptions.WidgetNotFoundException;
 import dev.jake.capstone_backend.widget.models.Rating;
+import dev.jake.capstone_backend.widget.models.Variant;
 import dev.jake.capstone_backend.widget.models.Widget;
 import dev.jake.capstone_backend.widget.repos.RatingRepository;
 import dev.jake.capstone_backend.widget.repos.WidgetRepository;
@@ -27,6 +33,7 @@ public class WidgetService {
     public WidgetService(WidgetRepository widgetRepository, RatingRepository ratingRepository) {
         this.widgetRepository = widgetRepository;
         this.ratingRepository = ratingRepository;
+
     }
 
     public Widget createWidget(CreateNewWidgetRequest request) {
@@ -102,6 +109,37 @@ public class WidgetService {
         return widget.getRatings()
                 .stream()
                 .map(WidgetMapper::toDto)
-        .toList();
+                .toList();
+    }
+
+    public List<VariantDto> getVariants(Long widgetId) {
+        Widget widget =
+                widgetRepository.findById(widgetId).orElseThrow(() -> new WidgetNotFoundException(widgetId));
+
+        return widget.getVariants()
+                .stream()
+                .map(WidgetMapper::toDto)
+                .toList();
+    }
+
+    public Variant createVariant(Long widgetId, CreateVariantRequest request) {
+        Widget widget = widgetRepository.findById(widgetId).orElseThrow(() -> new WidgetNotFoundException(widgetId));
+
+        Variant variant = new Variant();
+        variant.setColor(request.color());
+        variant.setSize(request.size());
+
+        Inventory inventory = new Inventory();
+        inventory.setVariant(variant);
+        inventory.setQuantity(request.initialQuantity());
+        inventory.setStatus(InventoryStatus.AVAILABLE);
+
+        variant.setInventory(inventory);
+
+        widget.addVariant(variant);
+
+        widgetRepository.save(widget);
+
+        return variant;
     }
 }

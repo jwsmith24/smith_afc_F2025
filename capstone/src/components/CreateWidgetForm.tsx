@@ -13,7 +13,6 @@ import {
 import {
   Field,
   FieldContent,
-  FieldDescription,
   FieldError,
   FieldGroup,
   FieldLabel,
@@ -27,26 +26,19 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Button } from "@/components/ui/button.tsx";
+import {
+  type CreateWidgetFormSchema,
+  formSchema,
+} from "@/types/CreateWidgetFormSchema.ts";
 
 const sizeOptions = ["small", "medium", "large"];
 
-const formSchema = z.object({
-  name: z
-    .string()
-    .min(3, "Widget name must be at least 3 characters")
-    .max(32, "Widget name cannot exceed 32 characters"),
-  description: z
-    .string()
-    .min(10, "Description must be at least 10 characters")
-    .max(120, "Description cannot exceed 120 characters")
-    .optional(),
-  baseColor: z.string().min(3).max(32),
-  size: z.enum(["small", "medium", "large"]),
-  initialQuantity: z.number(),
-});
+interface CreateWidgetFormProps {
+  onSuccess?: () => void;
+}
 
-export default function CreateWidgetForm() {
-  const form = useForm<z.infer<typeof formSchema>>({
+export default function CreateWidgetForm({ onSuccess }: CreateWidgetFormProps) {
+  const form = useForm<CreateWidgetFormSchema>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       name: "",
@@ -73,15 +65,19 @@ export default function CreateWidgetForm() {
         "--border-radius": "calc(var(--radius)  + 4px)",
       } as CSSProperties,
     });
+
+    onSuccess?.();
+
+    form.reset();
   }
 
   return (
-    <Card className={"w-1/2 place-self-center mt-8"}>
+    <Card className={"place-self-center w-full"}>
       <CardHeader>
         <CardTitle>Create Widget</CardTitle>
-        <CardDescription>Create a new widget with Brightforge!</CardDescription>
+        <CardDescription>Make your dream product a reality</CardDescription>
       </CardHeader>
-      <CardContent>
+      <CardContent className={"grid gap-8"}>
         <form id={"create-widget-form"} onSubmit={form.handleSubmit(onSubmit)}>
           <FieldGroup>
             <Controller
@@ -96,7 +92,7 @@ export default function CreateWidgetForm() {
                     {...field}
                     id="create-widget-form-name"
                     aria-invalid={fieldState.invalid}
-                    placeholder="Super creative name"
+                    placeholder="Give it a super creative name"
                     autoComplete="off"
                   />
                   {fieldState.invalid && (
@@ -157,11 +153,9 @@ export default function CreateWidgetForm() {
                 >
                   <FieldContent>
                     <FieldLabel htmlFor="create-widget-form-size">
-                      Spoken Language
+                      Widget Size
                     </FieldLabel>
-                    <FieldDescription>
-                      For best results, select the language you speak.
-                    </FieldDescription>
+
                     {fieldState.invalid && (
                       <FieldError errors={[fieldState.error]} />
                     )}
@@ -189,9 +183,36 @@ export default function CreateWidgetForm() {
                 </Field>
               )}
             />
+            <Controller
+              name={"initialQuantity"}
+              control={form.control}
+              render={({ field, fieldState }) => (
+                <Field data-invalid={fieldState.invalid}>
+                  <FieldLabel htmlFor="create-widget-form-color">
+                    Initial Quantity
+                  </FieldLabel>
+                  <Input
+                    {...field}
+                    id="create-widget-form-color"
+                    aria-invalid={fieldState.invalid}
+                    placeholder={""}
+                    autoComplete="off"
+                    type={"number"}
+                    onChange={(e) => field.onChange(e.target.valueAsNumber)}
+                  />
+                  {fieldState.invalid && (
+                    <FieldError errors={[fieldState.error]} />
+                  )}
+                </Field>
+              )}
+            />
           </FieldGroup>
         </form>
-        <Button type={"submit"} form={"create-widget-form"}>
+        <Button
+          type={"submit"}
+          form={"create-widget-form"}
+          className={"w-1/2 justify-self-end cursor-pointer"}
+        >
           FORGE!
         </Button>
       </CardContent>

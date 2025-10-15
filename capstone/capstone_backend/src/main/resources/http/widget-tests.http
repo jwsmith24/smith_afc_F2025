@@ -44,3 +44,16 @@ Content-Type: application/json
 
 ### Get all ratings for widget
 GET http://localhost:8080/api/v1/widgets/2/ratings
+
+### Get all variants for widget
+GET http://localhost:8080/api/v1/widgets/2/variants
+
+### Create new variant for widget
+POST http://localhost:8080/api/v1/widgets/3/variants
+Content-Type: application/json
+
+{
+  "color": "green",
+  "size": "large",
+  "initialQuantity": 12
+}
