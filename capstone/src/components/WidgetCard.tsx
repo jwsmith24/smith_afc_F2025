@@ -1,5 +1,6 @@
 import type { Widget } from "@/types/Widget.ts";
 import VariantDialog from "@/components/VariantDialog.tsx";
+import RatingDialog from "@/components/RatingDialog.tsx";
 
 interface WidgetCardProps {
   widget: Widget;
@@ -26,7 +27,8 @@ export default function WidgetCard({ widget }: WidgetCardProps) {
             alt="widget image"
             className={"w-[80px]"}
           />
-          <div>
+          <div className={"flex gap-2"}>
+            <RatingDialog widgetName={widget.name} widgetId={widget.id!} />
             <VariantDialog widgetName={widget.name} widgetId={widget.id!} />
           </div>
         </section>

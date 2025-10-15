@@ -12,7 +12,6 @@ import dev.jake.capstone_backend.widget.models.Rating;
 import dev.jake.capstone_backend.widget.models.Variant;
 import dev.jake.capstone_backend.widget.models.Widget;
 import jakarta.validation.Valid;
-import org.aspectj.weaver.ast.Var;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -76,7 +75,9 @@ public class WidgetController {
         RatingDto dto = new RatingDto(
                 saved.getId(),
                 saved.getScore(),
-                saved.getComment()
+                saved.getComment(),
+                saved.getCreatedAt(),
+                saved.getUpdatedAt()
         );
 
         return ResponseEntity.created(location).body(dto);
@@ -92,7 +93,9 @@ public class WidgetController {
         RatingDto dto = new RatingDto(
                 updated.getId(),
                 updated.getScore(),
-                updated.getComment()
+                updated.getComment(),
+                updated.getCreatedAt(),
+                updated.getUpdatedAt()
         );
 
         return ResponseEntity.ok(dto);

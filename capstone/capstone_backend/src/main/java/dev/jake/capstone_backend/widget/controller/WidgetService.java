@@ -85,7 +85,7 @@ public class WidgetService {
 
         widget.addRating(rating);
 
-        ratingRepository.saveAndFlush(rating);
+        ratingRepository.save(rating);
         return rating;
     }
 

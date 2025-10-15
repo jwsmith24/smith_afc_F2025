@@ -32,7 +32,8 @@ public class WidgetMapper {
 
 
     public static RatingDto toDto(Rating rating) {
-        return new RatingDto(rating.getId(), rating.getScore(), rating.getComment());
+        return new RatingDto(rating.getId(), rating.getScore(), rating.getComment(),
+                rating.getCreatedAt(), rating.getUpdatedAt());
 
     }
 

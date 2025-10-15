@@ -9,21 +9,21 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog.tsx";
 import { Button } from "@/components/ui/button.tsx";
-import WidgetVariantsTable from "@/components/WIdgetVariantsTable.tsx";
-import CreateVariantForm from "@/components/CreateVariantForm.tsx";
-import { useVariants } from "@/hooks/useVariants.ts";
+import RatingsTable from "@/components/RatingsTable.tsx";
+import { useRatings } from "@/hooks/useRatings.ts";
 import { useState } from "react";
+import AddRatingForm from "@/components/AddRatingForm.tsx";
 
-interface VariantDialogProps {
+interface RatingDialogProps {
   widgetName: string;
   widgetId: number;
 }
 
-export default function VariantDialog({
+export default function RatingDialog({
   widgetName,
   widgetId,
-}: VariantDialogProps) {
-  const { data: variants, loading, error, refetch } = useVariants(widgetId);
+}: RatingDialogProps) {
+  const { data: ratings, loading, error, refetch } = useRatings(widgetId);
   const [formOpen, setFormOpen] = useState(false);
 
   return (
@@ -34,21 +34,15 @@ export default function VariantDialog({
             "cursor-pointer bg-brightSilver hover:bg-limeGlow hover:opacity-85 text-black"
           }
         >
-          Variants
+          Ratings
         </Button>
       </DialogTrigger>
       <DialogContent className={""}>
         <DialogHeader>
-          <DialogTitle>Variant</DialogTitle>
-          <DialogDescription>
-            These are the variants of {widgetName}
-          </DialogDescription>
+          <DialogTitle>Ratings</DialogTitle>
+          <DialogDescription>Ratings for {widgetName}</DialogDescription>
         </DialogHeader>
-        <WidgetVariantsTable
-          variants={variants}
-          loading={loading}
-          error={error}
-        />
+        <RatingsTable ratings={ratings} loading={loading} error={error} />
         <DialogFooter>
           <Dialog open={formOpen} onOpenChange={setFormOpen}>
             <DialogTrigger asChild>
@@ -57,17 +51,17 @@ export default function VariantDialog({
                   "bg-slateGray hover:bg-limeGlow hover:text-black cursor-pointer"
                 }
               >
-                Add Variant
+                Add Rating
               </Button>
             </DialogTrigger>
             <DialogContent>
               <DialogHeader>
                 <DialogTitle>BrightForge</DialogTitle>
                 <DialogDescription>
-                  Reimagine {`${widgetName}`}
+                  Browse ratings for {widgetName}
                 </DialogDescription>
               </DialogHeader>
-              <CreateVariantForm
+              <AddRatingForm
                 widgetId={widgetId}
                 widgetName={widgetName}
                 onSuccess={() => {
@@ -77,11 +71,10 @@ export default function VariantDialog({
               />
             </DialogContent>
           </Dialog>
-
           <DialogClose asChild>
             <Button
               className={
-                "bg-slateGray hover:bg-electricBlue cursor-pointer hover:opacity-95"
+                "bg-electricBlue hover:bg-electricBlue cursor-pointer hover:opacity-95"
               }
             >
               Close
