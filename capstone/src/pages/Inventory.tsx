@@ -2,6 +2,7 @@ import WidgetCard from "@/components/WidgetCard.tsx";
 import { Button } from "@/components/ui/button.tsx";
 import { useWidgets } from "@/hooks/useWidgets.ts";
 import CreateWidgetDialog from "@/components/CreateWidgetDialog.tsx";
+import { Loader2 } from "lucide-react";
 
 export default function Inventory() {
   const backToTop = () => {
@@ -27,7 +28,12 @@ export default function Inventory() {
           " overflow-y-auto"
         }
       >
-        {loading && <div>Loading...</div>}
+        {loading && widgets.length > 0 && (
+          <div className="text-center text-sm text-slate-400">
+            <Loader2 className="animate-spin h-5 w-5 mr-2" />
+            <span>Updating widgets...</span>
+          </div>
+        )}
         {error && (
           <div>
             {error.name}: {error.message}
@@ -36,13 +42,12 @@ export default function Inventory() {
         {!loading && !error && widgets?.length === 0 && (
           <div>Add some widgets</div>
         )}
-        {!loading &&
-          !error &&
-          widgets?.length > 0 &&
+        {widgets?.length > 0 &&
           widgets.map((widget, index) => (
             <WidgetCard
               widget={widget}
               key={widget.id ?? `${widget.name}-${index}`}
+              refetch={refetch}
             />
           ))}
       </div>

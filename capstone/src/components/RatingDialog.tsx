@@ -17,11 +17,13 @@ import AddRatingForm from "@/components/AddRatingForm.tsx";
 interface RatingDialogProps {
   widgetName: string;
   widgetId: number;
+  refetchCards: () => void;
 }
 
 export default function RatingDialog({
   widgetName,
   widgetId,
+  refetchCards,
 }: RatingDialogProps) {
   const { data: ratings, loading, error, refetch } = useRatings(widgetId);
   const [formOpen, setFormOpen] = useState(false);
@@ -67,6 +69,7 @@ export default function RatingDialog({
                 onSuccess={() => {
                   void refetch();
                   setFormOpen(false);
+                  refetchCards();
                 }}
               />
             </DialogContent>

@@ -34,9 +34,10 @@ export default function AddRatingForm({
   const form = useForm<AddRatingSchema>({
     resolver: zodResolver(ratingSchema),
     defaultValues: {
-      score: 1,
+      score: 5,
       comment: "",
     },
+    mode: "onChange",
   });
 
   async function onSubmit(data: AddRatingSchema) {
@@ -74,7 +75,6 @@ export default function AddRatingForm({
                     {...field}
                     id="add-rating-form-score"
                     aria-invalid={fieldState.invalid}
-                    placeholder="What is the primary color?"
                     autoComplete="off"
                     type={"number"}
                     min={1}

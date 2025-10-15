@@ -4,8 +4,9 @@ import RatingDialog from "@/components/RatingDialog.tsx";
 
 interface WidgetCardProps {
   widget: Widget;
+  refetch: () => void;
 }
-export default function WidgetCard({ widget }: WidgetCardProps) {
+export default function WidgetCard({ widget, refetch }: WidgetCardProps) {
   return (
     <>
       <article
@@ -28,8 +29,16 @@ export default function WidgetCard({ widget }: WidgetCardProps) {
             className={"w-[80px]"}
           />
           <div className={"flex gap-2"}>
-            <RatingDialog widgetName={widget.name} widgetId={widget.id!} />
-            <VariantDialog widgetName={widget.name} widgetId={widget.id!} />
+            <RatingDialog
+              widgetName={widget.name}
+              widgetId={widget.id!}
+              refetchCards={refetch}
+            />
+            <VariantDialog
+              widgetName={widget.name}
+              widgetId={widget.id!}
+              refetchCards={refetch}
+            />
           </div>
         </section>
       </article>

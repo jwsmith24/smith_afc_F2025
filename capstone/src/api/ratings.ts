@@ -6,7 +6,6 @@ const BASE_URL = "http://localhost:8080/api/v1/widgets";
 
 export async function getRatings(widgetId: number): Promise<Rating[]> {
   const response = await axios.get(`${BASE_URL}/${widgetId}/ratings`);
-  console.log("got ratings from backend: ", response.data);
   return response.data;
 }
 
@@ -15,7 +14,6 @@ export async function createRating(
   data: AddRatingSchema,
 ): Promise<Rating> {
   const response = await axios.post(`${BASE_URL}/${widgetId}/ratings`, data);
-  console.log("Created variant: ", response.data);
 
   return response.data;
 }

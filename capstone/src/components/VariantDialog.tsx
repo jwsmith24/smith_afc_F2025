@@ -17,11 +17,13 @@ import { useState } from "react";
 interface VariantDialogProps {
   widgetName: string;
   widgetId: number;
+  refetchCards: () => void;
 }
 
 export default function VariantDialog({
   widgetName,
   widgetId,
+  refetchCards,
 }: VariantDialogProps) {
   const { data: variants, loading, error, refetch } = useVariants(widgetId);
   const [formOpen, setFormOpen] = useState(false);
@@ -73,6 +75,7 @@ export default function VariantDialog({
                 onSuccess={() => {
                   void refetch();
                   setFormOpen(false);
+                  refetchCards();
                 }}
               />
             </DialogContent>
