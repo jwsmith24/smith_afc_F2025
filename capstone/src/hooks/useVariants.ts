@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import type { WidgetVariant } from "@/types/WidgetVariant.ts";
 import { getVariants } from "@/api/variants.ts";
 
@@ -7,14 +7,23 @@ export function useVariants(widgetId: number) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<Error | null>(null);
 
+  const fetchVariants = useCallback(async () => {
+    try {
+      setLoading(true);
+      const variants = await getVariants(widgetId);
+      setData(variants);
+    } catch (error) {
+      setError(error as Error);
+    } finally {
+      setLoading(false);
+    }
+  }, [widgetId]);
+
   useEffect(() => {
     if (!widgetId) return;
 
-    getVariants(widgetId)
-      .then(setData)
-      .catch(setError)
-      .finally(() => setLoading(false));
-  }, [widgetId]);
+    void fetchVariants();
+  }, [fetchVariants, widgetId]);
 
-  return { data, loading, error };
+  return { data, loading, error, refetch: fetchVariants };
 }

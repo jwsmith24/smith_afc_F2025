@@ -10,6 +10,9 @@ import {
 } from "@/components/ui/dialog.tsx";
 import { Button } from "@/components/ui/button.tsx";
 import WidgetVariantsTable from "@/components/WIdgetVariantsTable.tsx";
+import CreateVariantForm from "@/components/CreateVariantForm.tsx";
+import { useVariants } from "@/hooks/useVariants.ts";
+import { useState } from "react";
 
 interface VariantDialogProps {
   widgetName: string;
@@ -20,6 +23,9 @@ export default function VariantDialog({
   widgetName,
   widgetId,
 }: VariantDialogProps) {
+  const { data: variants, loading, error, refetch } = useVariants(widgetId);
+  const [formOpen, setFormOpen] = useState(false);
+
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -28,7 +34,7 @@ export default function VariantDialog({
             "cursor-pointer bg-limeGlow hover:bg-limeGlow hover:opacity-85 text-black"
           }
         >
-          View Variants
+          Variants
         </Button>
       </DialogTrigger>
       <DialogContent className={""}>
@@ -38,8 +44,40 @@ export default function VariantDialog({
             These are the variants of {widgetName}
           </DialogDescription>
         </DialogHeader>
-        <WidgetVariantsTable widgetId={widgetId} />
+        <WidgetVariantsTable
+          variants={variants}
+          loading={loading}
+          error={error}
+        />
         <DialogFooter>
+          <Dialog open={formOpen} onOpenChange={setFormOpen}>
+            <DialogTrigger asChild>
+              <Button
+                className={
+                  "bg-limeGlow hover:bg-limeGlow cursor-pointer hover:opacity-85"
+                }
+              >
+                Add Variant
+              </Button>
+            </DialogTrigger>
+            <DialogContent>
+              <DialogHeader>
+                <DialogTitle>BrightForge</DialogTitle>
+                <DialogDescription>
+                  Reimagine {`${widgetName}`}
+                </DialogDescription>
+              </DialogHeader>
+              <CreateVariantForm
+                widgetId={widgetId}
+                widgetName={widgetName}
+                onSuccess={() => {
+                  void refetch();
+                  setFormOpen(false);
+                }}
+              />
+            </DialogContent>
+          </Dialog>
+
           <DialogClose asChild>
             <Button
               className={

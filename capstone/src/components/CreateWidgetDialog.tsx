@@ -11,7 +11,13 @@ import { Button } from "@/components/ui/button.tsx";
 import CreateWidgetForm from "@/components/CreateWidgetForm.tsx";
 import { useState } from "react";
 
-export default function CreateWidgetDialog() {
+interface CreateWidgetDialogProps {
+  onWidgetCreated?: () => void;
+}
+
+export default function CreateWidgetDialog({
+  onWidgetCreated,
+}: CreateWidgetDialogProps) {
   const [open, setOpen] = useState(false);
 
   return (
@@ -25,7 +31,12 @@ export default function CreateWidgetDialog() {
         <DialogHeader>
           <DialogTitle>BrightForge</DialogTitle>
         </DialogHeader>
-        <CreateWidgetForm onSuccess={() => setOpen(false)} />
+        <CreateWidgetForm
+          onSuccess={() => {
+            onWidgetCreated?.(); // refetch widgets
+            setOpen(false); // close dialog
+          }}
+        />
         <DialogFooter>
           <DialogClose asChild>
             <Button

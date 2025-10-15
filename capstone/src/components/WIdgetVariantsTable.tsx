@@ -7,18 +7,20 @@ import {
   TableRow,
 } from "@/components/ui/table";
 
-import { useVariants } from "@/hooks/useVariants.ts";
 import { Loader2 } from "lucide-react";
+import type { WidgetVariant } from "@/types/WidgetVariant.ts";
 
 interface WidgetVariantsTableProps {
-  widgetId: number;
+  variants: WidgetVariant[];
+  loading: boolean;
+  error: Error | null;
 }
 
 export default function WidgetVariantsTable({
-  widgetId,
+  variants,
+  loading,
+  error,
 }: WidgetVariantsTableProps) {
-  const { data: variants, loading, error } = useVariants(widgetId);
-
   if (loading) {
     return (
       <div className="flex justify-center items-center py-8">
@@ -55,7 +57,13 @@ export default function WidgetVariantsTable({
       <TableBody>
         {variants.map((variant) => (
           <TableRow>
-            <TableCell>{variant.color}</TableCell>
+            <TableCell className={"flex gap-2"}>
+              {variant.color}{" "}
+              <div
+                className={"w-1/6 rounded border border-slate-300"}
+                style={{ backgroundColor: variant.color }}
+              ></div>
+            </TableCell>
             <TableCell>{variant.size}</TableCell>
             <TableCell
               className={

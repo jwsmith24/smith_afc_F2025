@@ -13,13 +13,19 @@ export default function WidgetCard({ widget }: WidgetCardProps) {
         }
       >
         <h2>{widget.name}</h2>
-        <p className={"italic"}>{widget.description}</p>
+        <p className={"italic break-words whitespace-normal line-clamp-3"}>
+          {widget.description}
+        </p>
         <p className={"font-bold"}>
           Avg Rating: {widget.averageRating ?? "Not rated yet"}
         </p>
 
-        <section className={"flex justify-between"}>
-          <img src="/src/assets/react.svg" alt="widget image" />
+        <section className={"flex justify-between items-center p-2"}>
+          <img
+            src="/src/assets/react.svg"
+            alt="widget image"
+            className={"w-[80px]"}
+          />
           <div>
             <VariantDialog widgetName={widget.name} widgetId={widget.id!} />
           </div>

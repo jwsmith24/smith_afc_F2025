@@ -11,12 +11,12 @@ export default function Inventory() {
     }
   };
 
-  const { data: widgets, loading, error } = useWidgets();
+  const { data: widgets, loading, error, refetch } = useWidgets();
 
   return (
     <div className={"flex flex-col bg-slateGray"}>
       <section className={"p-4 border-b sticky top-0 bg-slateGray z-10"}>
-        <CreateWidgetDialog />
+        <CreateWidgetDialog onWidgetCreated={refetch} />
       </section>
       {/*grid container*/}
       <div

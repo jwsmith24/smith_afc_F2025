@@ -40,6 +40,22 @@ public class WidgetService {
         newWidget.setName(request.name());
         newWidget.setDescription(request.description());
 
+        // create default variant
+        Variant variant = new Variant();
+        variant.setColor(request.baseColor());
+        variant.setSize(request.size());
+
+        // create inventory entry
+        Inventory inventoryEntry = new Inventory();
+        inventoryEntry.setVariant(variant);
+        inventoryEntry.setQuantity(request.initialQuantity());
+        inventoryEntry.setStatus(InventoryStatus.AVAILABLE);
+
+        variant.setInventory(inventoryEntry);
+
+        newWidget.addVariant(variant);
+
+
         return widgetRepository.save(newWidget);
     }
 

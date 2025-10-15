@@ -1,11 +1,9 @@
-import * as z from "zod";
 import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "sonner";
 import {
   Card,
   CardContent,
-  CardDescription,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card.tsx";
@@ -26,34 +24,39 @@ import {
 } from "@/components/ui/select";
 import { Button } from "@/components/ui/button.tsx";
 import {
-  type CreateWidgetFormSchema,
-  formSchema,
-} from "@/types/CreateWidgetFormSchema.ts";
-import { createWidget } from "@/api/widgets.ts";
+  type CreateVariantFormSchema,
+  variantFormSchema,
+} from "@/types/WidgetVariant.ts";
+import { createVariant } from "@/api/variants.ts";
 
 const sizeOptions = ["small", "medium", "large"];
 
-interface CreateWidgetFormProps {
+interface CreateVariantFormProps {
   onSuccess?: () => void;
+  widgetId: number;
+  widgetName: string;
 }
 
-export default function CreateWidgetForm({ onSuccess }: CreateWidgetFormProps) {
-  const form = useForm<CreateWidgetFormSchema>({
-    resolver: zodResolver(formSchema),
+export default function CreateVariantForm({
+  onSuccess,
+  widgetId,
+  widgetName,
+}: CreateVariantFormProps) {
+  const form = useForm<CreateVariantFormSchema>({
+    resolver: zodResolver(variantFormSchema),
     defaultValues: {
-      name: "",
-      description: "",
-      baseColor: "#000000",
+      color: "#000000",
       size: "medium",
       initialQuantity: 0,
     },
     mode: "onChange",
   });
 
-  async function onSubmit(data: z.infer<typeof formSchema>) {
+  async function onSubmit(data: CreateVariantFormSchema) {
     try {
-      const newWidget = await createWidget(data);
-      toast.success(`Widget "${newWidget.name}" created!`);
+      const variant = await createVariant(widgetId, data);
+      console.log("New variant created: ", variant);
+      toast.success(`New variant for ${widgetName} created!`);
       onSuccess?.();
     } catch (error) {
       toast.error("Failed to create widget.. please try again.");
@@ -66,56 +69,13 @@ export default function CreateWidgetForm({ onSuccess }: CreateWidgetFormProps) {
   return (
     <Card className={"place-self-center w-full"}>
       <CardHeader>
-        <CardTitle>Create Widget</CardTitle>
-        <CardDescription>Make your dream product a reality</CardDescription>
+        <CardTitle>Add Variant</CardTitle>
       </CardHeader>
       <CardContent className={"grid gap-8"}>
         <form id={"create-widget-form"} onSubmit={form.handleSubmit(onSubmit)}>
           <FieldGroup>
             <Controller
-              name={"name"}
-              control={form.control}
-              render={({ field, fieldState }) => (
-                <Field data-invalid={fieldState.invalid}>
-                  <FieldLabel htmlFor="create-widget-form-name">
-                    Widget Name
-                  </FieldLabel>
-                  <Input
-                    {...field}
-                    id="create-widget-form-name"
-                    aria-invalid={fieldState.invalid}
-                    placeholder="Give it a super creative name"
-                    autoComplete="off"
-                  />
-                  {fieldState.invalid && (
-                    <FieldError errors={[fieldState.error]} />
-                  )}
-                </Field>
-              )}
-            />
-            <Controller
-              name={"description"}
-              control={form.control}
-              render={({ field, fieldState }) => (
-                <Field data-invalid={fieldState.invalid}>
-                  <FieldLabel htmlFor="create-widget-form-desc">
-                    Description
-                  </FieldLabel>
-                  <Input
-                    {...field}
-                    id="create-widget-form-desc"
-                    aria-invalid={fieldState.invalid}
-                    placeholder="Briefly describe your vision"
-                    autoComplete="off"
-                  />
-                  {fieldState.invalid && (
-                    <FieldError errors={[fieldState.error]} />
-                  )}
-                </Field>
-              )}
-            />
-            <Controller
-              name={"baseColor"}
+              name={"color"}
               control={form.control}
               render={({ field, fieldState }) => (
                 <Field data-invalid={fieldState.invalid}>
