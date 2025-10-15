@@ -21,7 +21,7 @@ export default function WidgetCard({ widget }: WidgetCardProps) {
         <section className={"flex justify-between"}>
           <img src="/src/assets/react.svg" alt="widget image" />
           <div>
-            <VariantDialog widgetName={widget.name} />
+            <VariantDialog widgetName={widget.name} widgetId={widget.id!} />
           </div>
         </section>
       </article>

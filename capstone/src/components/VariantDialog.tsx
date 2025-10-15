@@ -13,9 +13,13 @@ import WidgetVariantsTable from "@/components/WIdgetVariantsTable.tsx";
 
 interface VariantDialogProps {
   widgetName: string;
+  widgetId: number;
 }
 
-export default function VariantDialog({ widgetName }: VariantDialogProps) {
+export default function VariantDialog({
+  widgetName,
+  widgetId,
+}: VariantDialogProps) {
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -34,7 +38,7 @@ export default function VariantDialog({ widgetName }: VariantDialogProps) {
             These are the variants of {widgetName}
           </DialogDescription>
         </DialogHeader>
-        <WidgetVariantsTable />
+        <WidgetVariantsTable widgetId={widgetId} />
         <DialogFooter>
           <DialogClose asChild>
             <Button
