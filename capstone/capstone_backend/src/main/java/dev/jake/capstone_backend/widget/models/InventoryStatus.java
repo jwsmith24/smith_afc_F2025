@@ -1,4 +1,4 @@
-package dev.jake.capstone_backend.inventory;
+package dev.jake.capstone_backend.widget.models;
 
 public enum InventoryStatus {
     AVAILABLE,

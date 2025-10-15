@@ -1,4 +1,4 @@
 - CORS config to allow the frontend on 5173 to talk to the backend on 8080
 - Added toasts with `sonner`
 - Created form validation schema with zod and used type inference to reuse the shape across the app
-- 
+- Created DTOs for all create and update requests and entities for responses when applicable

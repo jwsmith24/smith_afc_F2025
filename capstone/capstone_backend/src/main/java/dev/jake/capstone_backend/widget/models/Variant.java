@@ -1,7 +1,6 @@
 package dev.jake.capstone_backend.widget.models;
 
 
-import dev.jake.capstone_backend.inventory.Inventory;
 import dev.jake.capstone_backend.util.BaseEntity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

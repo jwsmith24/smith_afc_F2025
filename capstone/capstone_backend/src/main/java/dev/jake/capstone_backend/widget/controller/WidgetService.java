@@ -1,8 +1,7 @@
 package dev.jake.capstone_backend.widget.controller;
 
-import dev.jake.capstone_backend.inventory.Inventory;
-import dev.jake.capstone_backend.inventory.InventoryRepository;
-import dev.jake.capstone_backend.inventory.InventoryStatus;
+import dev.jake.capstone_backend.widget.models.Inventory;
+import dev.jake.capstone_backend.widget.models.InventoryStatus;
 import dev.jake.capstone_backend.widget.controller.dto.requests.AddNewRatingRequest;
 import dev.jake.capstone_backend.widget.controller.dto.requests.CreateNewWidgetRequest;
 import dev.jake.capstone_backend.widget.controller.dto.requests.CreateVariantRequest;

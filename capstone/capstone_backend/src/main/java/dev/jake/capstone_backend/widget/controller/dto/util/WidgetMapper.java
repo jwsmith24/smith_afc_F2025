@@ -1,17 +1,15 @@
 package dev.jake.capstone_backend.widget.controller.dto.util;
 
-import dev.jake.capstone_backend.inventory.Inventory;
+import dev.jake.capstone_backend.widget.models.Inventory;
 import dev.jake.capstone_backend.widget.controller.dto.responses.RatingDto;
 import dev.jake.capstone_backend.widget.controller.dto.responses.VariantDto;
 import dev.jake.capstone_backend.widget.controller.dto.responses.WidgetDto;
 import dev.jake.capstone_backend.widget.models.Rating;
 import dev.jake.capstone_backend.widget.models.Variant;
 import dev.jake.capstone_backend.widget.models.Widget;
-import org.aspectj.weaver.ast.Var;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.util.List;
 
 public class WidgetMapper {
 
