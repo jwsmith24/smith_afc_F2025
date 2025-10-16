@@ -34,102 +34,104 @@ export default function RatingDialog({
   const [activeRating, setActiveRating] = useState<Rating>();
 
   const handleClick = (rating: Rating) => {
-    console.log("setting active rating to: ", rating);
+    console.log("setting active rating to: ", rating); //.todo wtd
     setActiveRating(rating);
   };
 
   return (
-    <Dialog>
-      <DialogTrigger asChild>
-        <Button
-          className={
-            "cursor-pointer bg-brightSilver hover:bg-limeGlow hover:opacity-85 text-black"
-          }
-        >
-          Ratings
-        </Button>
-      </DialogTrigger>
-      <DialogContent className={""}>
-        <DialogHeader>
-          <DialogTitle>Ratings</DialogTitle>
-          <DialogDescription>Ratings for {widgetName}</DialogDescription>
-        </DialogHeader>
-        <RatingsTable
-          ratings={ratings}
-          loading={loading}
-          error={error}
-          handleClick={handleClick}
-          activeRating={activeRating}
-        />
-        <DialogFooter>
-          <Dialog open={addOpen} onOpenChange={setAddOpen}>
-            <DialogTrigger asChild>
-              <Button
-                className={
-                  "bg-slateGray hover:bg-limeGlow hover:text-black cursor-pointer"
-                }
-              >
-                Add Rating
-              </Button>
-            </DialogTrigger>
-            <DialogContent>
-              <DialogHeader>
-                <DialogTitle>BrightForge</DialogTitle>
-                <DialogDescription>
-                  Browse ratings for {widgetName}
-                </DialogDescription>
-              </DialogHeader>
-              <RatingForm
-                widgetId={widgetId}
-                widgetName={widgetName}
-                onSuccess={() => {
-                  void refetch();
-                  setAddOpen(false);
-                  refetchCards();
-                }}
-              />
-            </DialogContent>
-          </Dialog>
-          <Dialog open={editOpen} onOpenChange={setEditOpen}>
-            <DialogTrigger asChild>
-              <Button
-                className={`bg-slateGray hover:bg-limeGlow hover:text-black cursor-pointer 
-                  ${!activeRating ? "hidden" : ""}`}
-              >
-                Edit Rating
-              </Button>
-            </DialogTrigger>
-            <DialogContent>
-              <DialogHeader>
-                <DialogTitle>BrightForge</DialogTitle>
-                <DialogDescription>
-                  Browse ratings for {widgetName}
-                </DialogDescription>
-              </DialogHeader>
-              <RatingForm
-                widgetId={widgetId}
-                widgetName={widgetName}
-                onSuccess={() => {
-                  void refetch();
-                  setEditOpen(false);
-                  refetchCards();
-                }}
-                editMode={true}
-                activeRating={activeRating}
-              />
-            </DialogContent>
-          </Dialog>
-          <DialogClose asChild>
+    <>
+      <Dialog>
+        <DialogTrigger asChild>
+          <Button
+            className={
+              "cursor-pointer bg-brightSilver hover:bg-limeGlow hover:opacity-85 text-black"
+            }
+          >
+            Ratings
+          </Button>
+        </DialogTrigger>
+        <DialogContent className={""}>
+          <DialogHeader>
+            <DialogTitle>Ratings</DialogTitle>
+            <DialogDescription>Ratings for {widgetName}</DialogDescription>
+          </DialogHeader>
+          <RatingsTable
+            ratings={ratings}
+            loading={loading}
+            error={error}
+            handleClick={handleClick}
+            activeRating={activeRating}
+          />
+          <DialogFooter>
             <Button
               className={
-                "bg-electricBlue hover:bg-electricBlue cursor-pointer hover:opacity-95"
+                "bg-slateGray hover:bg-limeGlow hover:text-black cursor-pointer"
               }
+              onClick={() => setAddOpen(true)}
             >
-              Close
+              Add Rating
             </Button>
-          </DialogClose>
-        </DialogFooter>
-      </DialogContent>
-    </Dialog>
+            <Button
+              className={`bg-slateGray hover:bg-limeGlow hover:text-black cursor-pointer 
+                  ${!activeRating ? "hidden" : ""}`}
+              disabled={!activeRating}
+              onClick={() => setEditOpen(true)}
+            >
+              Edit Rating
+            </Button>
+
+            <DialogClose asChild>
+              <Button
+                className={
+                  "bg-electricBlue hover:bg-electricBlue cursor-pointer hover:opacity-95"
+                }
+              >
+                Close
+              </Button>
+            </DialogClose>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+      <Dialog open={addOpen} onOpenChange={setAddOpen}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>BrightForge</DialogTitle>
+            <DialogDescription>
+              Browse ratings for {widgetName}
+            </DialogDescription>
+          </DialogHeader>
+          <RatingForm
+            widgetId={widgetId}
+            widgetName={widgetName}
+            onSuccess={() => {
+              void refetch();
+              setAddOpen(false);
+              refetchCards();
+            }}
+          />
+        </DialogContent>
+      </Dialog>
+      <Dialog open={editOpen} onOpenChange={setEditOpen}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>BrightForge</DialogTitle>
+            <DialogDescription>
+              Browse ratings for {widgetName}
+            </DialogDescription>
+          </DialogHeader>
+          <RatingForm
+            widgetId={widgetId}
+            widgetName={widgetName}
+            onSuccess={() => {
+              void refetch();
+              setEditOpen(false);
+              refetchCards();
+            }}
+            editMode={true}
+            activeRating={activeRating}
+          />
+        </DialogContent>
+      </Dialog>
+    </>
   );
 }
