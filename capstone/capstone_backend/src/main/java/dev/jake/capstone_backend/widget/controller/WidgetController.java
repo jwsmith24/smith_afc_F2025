@@ -84,6 +84,13 @@ public class WidgetController {
 
     }
 
+    @DeleteMapping("/{widgetId}")
+    public ResponseEntity<String> deleteWidget(@PathVariable Long widgetId) {
+        widgetService.deleteWidget(widgetId);
+        return ResponseEntity.ok("Widget with id: " + widgetId + " deleted");
+    }
+
+
     @PatchMapping("/{widgetId}/ratings/{ratingId}")
     public ResponseEntity<RatingDto> updateRating(@PathVariable Long widgetId,
                                                   @PathVariable Long ratingId,
@@ -99,6 +106,14 @@ public class WidgetController {
         );
 
         return ResponseEntity.ok(dto);
+    }
+
+    @DeleteMapping("/{widgetId}/ratings/{ratingId}")
+    public ResponseEntity<String> deleteRating(@PathVariable Long widgetId,
+                                               @PathVariable Long ratingId) {
+
+        widgetService.deleteRating(widgetId, ratingId);
+        return ResponseEntity.ok("Rating with id: " + ratingId + " deleted successfully");
     }
 
     @GetMapping("/{widgetId}/ratings")

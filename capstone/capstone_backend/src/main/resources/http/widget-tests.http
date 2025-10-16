@@ -57,3 +57,9 @@ Content-Type: application/json
   "size": "large",
   "initialQuantity": 12
 }
+
+### Delete existing rating
+DELETE http://localhost:8080/api/v1/widgets/3/ratings/20
+
+### Delete an existing widget
+DELETE http://localhost:8080/api/v1/widgets/5

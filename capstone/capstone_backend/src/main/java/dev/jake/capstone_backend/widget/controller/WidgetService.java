@@ -59,6 +59,16 @@ public class WidgetService {
         return widgetRepository.save(newWidget);
     }
 
+    public void deleteWidget(Long widgetId) {
+        if (widgetRepository.existsById(widgetId)) {
+            widgetRepository.deleteById(widgetId);
+        } else {
+            throw new WidgetNotFoundException(widgetId);
+        }
+    }
+
+
+
     public List<WidgetDto> getAllWidgets() {
 
         List<Widget> widgets = widgetRepository.findAll();
@@ -87,6 +97,21 @@ public class WidgetService {
 
         ratingRepository.save(rating);
         return rating;
+    }
+
+    @Transactional
+    public void deleteRating(Long widgetId, Long ratingId) {
+
+        Widget widget = widgetRepository.findById(widgetId)
+                .orElseThrow(() -> new WidgetNotFoundException(widgetId));
+
+        Rating rating = widget.getRatings().stream()
+                .filter(r -> r.getId().equals(ratingId))
+                .findFirst()
+                .orElseThrow(() -> new RatingNotFoundException(ratingId));
+
+        widget.getRatings().remove(rating);
+        widgetRepository.save(widget); // orphan removal will update the rating table
     }
 
 
