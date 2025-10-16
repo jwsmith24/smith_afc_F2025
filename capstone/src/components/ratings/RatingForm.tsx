@@ -1,7 +1,11 @@
 import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { type AddRatingSchema, ratingSchema } from "@/types/Rating.ts";
-import { createRating } from "@/api/ratings.ts";
+import {
+  type Rating,
+  type RatingSchema,
+  ratingSchema,
+} from "@/types/Rating.ts";
+import { createRating, updateRating } from "@/api/ratings.ts";
 import { toast } from "sonner";
 import {
   Card,
@@ -20,35 +24,53 @@ import { Input } from "@/components/ui/input.tsx";
 import { Button } from "@/components/ui/button.tsx";
 import { Textarea } from "@/components/ui/textarea.tsx";
 
-interface AddRatingFormProps {
+interface RatingFormProps {
   onSuccess?: () => void;
   widgetId: number;
   widgetName: string;
+  editMode?: boolean;
+  activeRating?: Rating;
 }
 
-export default function AddRatingForm({
+export default function RatingForm({
   onSuccess,
   widgetId,
   widgetName,
-}: AddRatingFormProps) {
-  const form = useForm<AddRatingSchema>({
+  editMode = false,
+  activeRating,
+}: RatingFormProps) {
+  const form = useForm<RatingSchema>({
     resolver: zodResolver(ratingSchema),
     defaultValues: {
-      score: 5,
-      comment: "",
+      score: activeRating?.score ?? 5,
+      comment: activeRating?.comment ?? "",
     },
     mode: "onChange",
   });
 
-  async function onSubmit(data: AddRatingSchema) {
-    try {
-      const rating = await createRating(widgetId, data);
-      console.log("New rating added: ", rating);
-      toast.success(`Rating added to ${widgetName}`);
-      onSuccess?.();
-    } catch (error) {
-      toast.error("Failed to add rating.. please try again");
-      console.error(error);
+  async function onSubmit(data: RatingSchema) {
+    if (!editMode) {
+      try {
+        const rating = await createRating(widgetId, data);
+        console.log("New rating added: ", rating);
+        toast.success(`Rating added to ${widgetName}`);
+        onSuccess?.();
+      } catch (error) {
+        toast.error("Failed to add rating.. please try again");
+        console.error(error);
+      }
+    } else {
+      if (!activeRating?.id) return;
+
+      try {
+        const updated = await updateRating(widgetId, activeRating.id, data);
+        console.log("updated rating", updated);
+        toast.success(`Rating updated for ${widgetName}`);
+        onSuccess?.();
+      } catch (error) {
+        toast.error("Failed to update rating");
+        console.error(error);
+      }
     }
 
     form.reset();
@@ -57,7 +79,7 @@ export default function AddRatingForm({
   return (
     <Card className={"place-self-center w-full"}>
       <CardHeader>
-        <CardTitle>Add Rating</CardTitle>
+        <CardTitle>{editMode ? "Edit" : "Add"} Rating</CardTitle>
       </CardHeader>
       <CardContent className={"grid gap-8"}>
         <form id={"add-rating-form"} onSubmit={form.handleSubmit(onSubmit)}>

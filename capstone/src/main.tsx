@@ -6,7 +6,7 @@ import { BrowserRouter, Route, Routes } from "react-router";
 import Inventory from "@/pages/Inventory.tsx";
 import Home from "@/pages/Home.tsx";
 import About from "@/pages/About.tsx";
-import CreateWidgetForm from "@/components/CreateWidgetForm.tsx";
+import CreateWidgetForm from "@/components/widgets/CreateWidgetForm.tsx";
 import { Toaster } from "sonner";
 
 createRoot(document.getElementById("root")!).render(

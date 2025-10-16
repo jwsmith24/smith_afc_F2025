@@ -9,10 +9,11 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog.tsx";
 import { Button } from "@/components/ui/button.tsx";
-import RatingsTable from "@/components/RatingsTable.tsx";
+import RatingsTable from "@/components/ratings/RatingsTable.tsx";
 import { useRatings } from "@/hooks/useRatings.ts";
 import { useState } from "react";
-import AddRatingForm from "@/components/AddRatingForm.tsx";
+import RatingForm from "@/components/ratings/RatingForm.tsx";
+import type { Rating } from "@/types/Rating.ts";
 
 interface RatingDialogProps {
   widgetName: string;
@@ -26,7 +27,16 @@ export default function RatingDialog({
   refetchCards,
 }: RatingDialogProps) {
   const { data: ratings, loading, error, refetch } = useRatings(widgetId);
-  const [formOpen, setFormOpen] = useState(false);
+
+  const [addOpen, setAddOpen] = useState(false);
+  const [editOpen, setEditOpen] = useState(false);
+
+  const [activeRating, setActiveRating] = useState<Rating>();
+
+  const handleClick = (rating: Rating) => {
+    console.log("setting active rating to: ", rating);
+    setActiveRating(rating);
+  };
 
   return (
     <Dialog>
@@ -44,9 +54,15 @@ export default function RatingDialog({
           <DialogTitle>Ratings</DialogTitle>
           <DialogDescription>Ratings for {widgetName}</DialogDescription>
         </DialogHeader>
-        <RatingsTable ratings={ratings} loading={loading} error={error} />
+        <RatingsTable
+          ratings={ratings}
+          loading={loading}
+          error={error}
+          handleClick={handleClick}
+          activeRating={activeRating}
+        />
         <DialogFooter>
-          <Dialog open={formOpen} onOpenChange={setFormOpen}>
+          <Dialog open={addOpen} onOpenChange={setAddOpen}>
             <DialogTrigger asChild>
               <Button
                 className={
@@ -63,14 +79,43 @@ export default function RatingDialog({
                   Browse ratings for {widgetName}
                 </DialogDescription>
               </DialogHeader>
-              <AddRatingForm
+              <RatingForm
                 widgetId={widgetId}
                 widgetName={widgetName}
                 onSuccess={() => {
                   void refetch();
-                  setFormOpen(false);
+                  setAddOpen(false);
                   refetchCards();
                 }}
+              />
+            </DialogContent>
+          </Dialog>
+          <Dialog open={editOpen} onOpenChange={setEditOpen}>
+            <DialogTrigger asChild>
+              <Button
+                className={`bg-slateGray hover:bg-limeGlow hover:text-black cursor-pointer 
+                  ${!activeRating ? "hidden" : ""}`}
+              >
+                Edit Rating
+              </Button>
+            </DialogTrigger>
+            <DialogContent>
+              <DialogHeader>
+                <DialogTitle>BrightForge</DialogTitle>
+                <DialogDescription>
+                  Browse ratings for {widgetName}
+                </DialogDescription>
+              </DialogHeader>
+              <RatingForm
+                widgetId={widgetId}
+                widgetName={widgetName}
+                onSuccess={() => {
+                  void refetch();
+                  setEditOpen(false);
+                  refetchCards();
+                }}
+                editMode={true}
+                activeRating={activeRating}
               />
             </DialogContent>
           </Dialog>

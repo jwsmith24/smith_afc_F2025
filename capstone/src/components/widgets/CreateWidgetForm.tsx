@@ -23,7 +23,7 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
+} from "@/components/ui/select.tsx";
 import { Button } from "@/components/ui/button.tsx";
 import {
   type CreateWidgetFormSchema,

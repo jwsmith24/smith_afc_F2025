@@ -1,7 +1,7 @@
-import WidgetCard from "@/components/WidgetCard.tsx";
+import WidgetCard from "@/components/widgets/WidgetCard.tsx";
 import { Button } from "@/components/ui/button.tsx";
 import { useWidgets } from "@/hooks/useWidgets.ts";
-import CreateWidgetDialog from "@/components/CreateWidgetDialog.tsx";
+import CreateWidgetDialog from "@/components/widgets/CreateWidgetDialog.tsx";
 import { Loader2 } from "lucide-react";
 
 export default function Inventory() {

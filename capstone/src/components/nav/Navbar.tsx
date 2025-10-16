@@ -3,7 +3,7 @@ import {
   NavigationMenuList,
 } from "@/components/ui/navigation-menu.tsx";
 
-import NavbarItem from "@/components/NavbarItem.tsx";
+import NavbarItem from "@/components/nav/NavbarItem.tsx";
 import type { NavItem } from "@/types/NavItem.ts";
 import { Input } from "@/components/ui/input.tsx";
 

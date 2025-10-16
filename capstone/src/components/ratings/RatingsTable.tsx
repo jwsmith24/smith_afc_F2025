@@ -5,7 +5,7 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table";
+} from "@/components/ui/table.tsx";
 
 import { Loader2 } from "lucide-react";
 import type { Rating } from "@/types/Rating.ts";
@@ -14,12 +14,16 @@ interface RatingsTableProps {
   ratings: Rating[];
   loading: boolean;
   error: Error | null;
+  handleClick: (rating: Rating) => void;
+  activeRating: Rating | undefined;
 }
 
 export default function RatingsTable({
   ratings,
   loading,
   error,
+  handleClick,
+  activeRating,
 }: RatingsTableProps) {
   if (loading) {
     return (
@@ -48,7 +52,7 @@ export default function RatingsTable({
     <Table>
       <TableHeader>
         <TableRow>
-          <TableHead>Score</TableHead>
+          <TableHead className={"text-right"}>Score</TableHead>
           <TableHead>Comment</TableHead>
           <TableHead>Created</TableHead>
           <TableHead>Updated</TableHead>
@@ -56,14 +60,22 @@ export default function RatingsTable({
       </TableHeader>
 
       <TableBody>
-        {ratings.map((rating, index) => (
-          <TableRow key={rating.id ?? `rating-${index}`}>
-            <TableCell className={"flex gap-2"}>{rating.score} </TableCell>
-            <TableCell>{rating.comment}</TableCell>
-            <TableCell>{new Date(rating.created).toLocaleString()}</TableCell>
-            <TableCell>{new Date(rating.updated).toLocaleString()}</TableCell>
-          </TableRow>
-        ))}
+        {ratings.map((rating, index) => {
+          console.log("active rating: ", activeRating);
+          console.log("row rating: ", rating);
+          return (
+            <TableRow
+              key={rating.id ?? `rating-${index}`}
+              onClick={() => handleClick(rating)}
+              className={` cursor-pointer ${activeRating?.id === rating.id ? "bg-electricBlue/20" : ""}`}
+            >
+              <TableCell className={"text-center"}>{rating.score} </TableCell>
+              <TableCell>{rating.comment}</TableCell>
+              <TableCell>{new Date(rating.created).toLocaleString()}</TableCell>
+              <TableCell>{new Date(rating.updated).toLocaleString()}</TableCell>
+            </TableRow>
+          );
+        })}
       </TableBody>
     </Table>
   );

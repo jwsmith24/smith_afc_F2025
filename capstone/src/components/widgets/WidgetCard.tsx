@@ -1,6 +1,6 @@
 import type { Widget } from "@/types/Widget.ts";
-import VariantDialog from "@/components/VariantDialog.tsx";
-import RatingDialog from "@/components/RatingDialog.tsx";
+import VariantDialog from "@/components/variants/VariantDialog.tsx";
+import RatingDialog from "@/components/ratings/RatingDialog.tsx";
 
 interface WidgetCardProps {
   widget: Widget;

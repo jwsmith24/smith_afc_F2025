@@ -9,8 +9,8 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog.tsx";
 import { Button } from "@/components/ui/button.tsx";
-import WidgetVariantsTable from "@/components/WIdgetVariantsTable.tsx";
-import CreateVariantForm from "@/components/CreateVariantForm.tsx";
+import WidgetVariantsTable from "@/components/variants/WIdgetVariantsTable.tsx";
+import CreateVariantForm from "@/components/variants/CreateVariantForm.tsx";
 import { useVariants } from "@/hooks/useVariants.ts";
 import { useState } from "react";
 

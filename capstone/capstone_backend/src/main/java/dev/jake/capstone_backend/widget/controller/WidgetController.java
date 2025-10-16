@@ -87,7 +87,7 @@ public class WidgetController {
     @PatchMapping("/{widgetId}/ratings/{ratingId}")
     public ResponseEntity<RatingDto> updateRating(@PathVariable Long widgetId,
                                                   @PathVariable Long ratingId,
-                                                  @RequestBody UpdateRatingRequest request) {
+                                                  @Valid @RequestBody UpdateRatingRequest request) {
 
         Rating updated = widgetService.updateRating(widgetId, ratingId, request);
         RatingDto dto = new RatingDto(

@@ -8,7 +8,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog.tsx";
 import { Button } from "@/components/ui/button.tsx";
-import CreateWidgetForm from "@/components/CreateWidgetForm.tsx";
+import CreateWidgetForm from "@/components/widgets/CreateWidgetForm.tsx";
 import { useState } from "react";
 
 interface CreateWidgetDialogProps {

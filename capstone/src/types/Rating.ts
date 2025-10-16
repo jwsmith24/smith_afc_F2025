@@ -13,4 +13,4 @@ export const ratingSchema = z.object({
   comment: z.string().min(1).max(120),
 });
 
-export type AddRatingSchema = z.infer<typeof ratingSchema>;
+export type RatingSchema = z.infer<typeof ratingSchema>;
