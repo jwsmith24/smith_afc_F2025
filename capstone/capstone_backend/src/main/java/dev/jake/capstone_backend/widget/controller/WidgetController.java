@@ -149,4 +149,12 @@ public class WidgetController {
 
     }
 
+    @DeleteMapping("/{widgetId}/variants/{variantId}")
+    public ResponseEntity<String> deleteVariant(@PathVariable Long widgetId,
+                                                @PathVariable Long variantId) {
+        widgetService.deleteVariant(widgetId, variantId);
+
+        return ResponseEntity.ok("Variant with id " + variantId + " deleted");
+    }
+
 }

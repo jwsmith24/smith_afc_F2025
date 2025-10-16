@@ -35,6 +35,7 @@ public class WidgetService {
 
     }
 
+    @Transactional
     public Widget createWidget(CreateNewWidgetRequest request) {
         Widget newWidget = new Widget();
         newWidget.setName(request.name());
@@ -59,6 +60,7 @@ public class WidgetService {
         return widgetRepository.save(newWidget);
     }
 
+    @Transactional
     public void deleteWidget(Long widgetId) {
         if (widgetRepository.existsById(widgetId)) {
             widgetRepository.deleteById(widgetId);
@@ -162,6 +164,7 @@ public class WidgetService {
                 .toList();
     }
 
+    @Transactional
     public Variant createVariant(Long widgetId, CreateVariantRequest request) {
         Widget widget = widgetRepository.findById(widgetId).orElseThrow(() -> new WidgetNotFoundException(widgetId));
 
@@ -181,5 +184,19 @@ public class WidgetService {
         widgetRepository.save(widget);
 
         return variant;
+    }
+
+
+    public void deleteVariant(Long widgetId, Long variantId) {
+        Widget widget = widgetRepository.findById(widgetId)
+                .orElseThrow(() -> new WidgetNotFoundException(widgetId));
+
+        Variant variant = widget.getVariants().stream()
+                .filter(r -> r.getId().equals(variantId))
+                .findFirst()
+                .orElseThrow(() -> new RatingNotFoundException(variantId));
+
+        widget.getVariants().remove(variant);
+        widgetRepository.save(widget);
     }
 }

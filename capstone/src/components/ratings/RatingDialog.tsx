@@ -14,6 +14,7 @@ import { useRatings } from "@/hooks/useRatings.ts";
 import { useState } from "react";
 import RatingForm from "@/components/ratings/RatingForm.tsx";
 import type { Rating } from "@/types/Rating.ts";
+import { toast } from "sonner";
 
 interface RatingDialogProps {
   widgetName: string;
@@ -72,12 +73,25 @@ export default function RatingDialog({
               Add Rating
             </Button>
             <Button
-              className={`bg-slateGray hover:bg-limeGlow hover:text-black cursor-pointer 
+              className={`bg-slateGray hover:bg-forgeOrange hover:text-black cursor-pointer 
                   ${!activeRating ? "hidden" : ""}`}
               disabled={!activeRating}
               onClick={() => setEditOpen(true)}
             >
               Edit Rating
+            </Button>
+            <Button
+              className={`bg-slateGray hover:bg-errorRed  cursor-pointer 
+                  ${!activeRating ? "hidden" : ""}`}
+              disabled={!activeRating}
+              onClick={() =>
+                // todo: actually implement delete
+                toast.message(
+                  <pre>{JSON.stringify(activeRating, null, 2)}</pre>,
+                )
+              }
+            >
+              Delete Rating
             </Button>
 
             <DialogClose asChild>
