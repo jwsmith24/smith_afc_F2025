@@ -138,7 +138,7 @@ public class WidgetService {
         if (request.comment() != null) rating.setComment(request.comment());
 
 
-        ratingRepository.saveAndFlush(rating);
+        ratingRepository.save(rating);
 
         return rating;
     }

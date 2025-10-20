@@ -31,17 +31,19 @@ import { createVariant } from "@/api/variants.ts";
 
 const sizeOptions = ["small", "medium", "large"];
 
-interface CreateVariantFormProps {
+interface VariantFormProps {
   onSuccess?: () => void;
   widgetId: number;
   widgetName: string;
+  editMode?: boolean;
 }
 
-export default function CreateVariantForm({
+export default function VariantForm({
   onSuccess,
   widgetId,
   widgetName,
-}: CreateVariantFormProps) {
+  editMode = false,
+}: VariantFormProps) {
   const form = useForm<CreateVariantFormSchema>({
     resolver: zodResolver(variantFormSchema),
     defaultValues: {
@@ -53,14 +55,19 @@ export default function CreateVariantForm({
   });
 
   async function onSubmit(data: CreateVariantFormSchema) {
-    try {
-      const variant = await createVariant(widgetId, data);
-      console.log("New variant created: ", variant);
-      toast.success(`New variant for ${widgetName} created!`);
-      onSuccess?.();
-    } catch (error) {
-      toast.error("Failed to create widget.. please try again.");
-      console.error(error);
+    if (!editMode) {
+      try {
+        const variant = await createVariant(widgetId, data);
+        console.log("New variant created: ", variant);
+        toast.success(`New variant for ${widgetName} created!`);
+        onSuccess?.();
+      } catch (error) {
+        toast.error("Failed to create widget.. please try again.");
+        console.error(error);
+      }
+    } else {
+      // todo
+      toast.message("future update");
     }
 
     form.reset();
@@ -69,7 +76,7 @@ export default function CreateVariantForm({
   return (
     <Card className={"place-self-center w-full"}>
       <CardHeader>
-        <CardTitle>Add Variant</CardTitle>
+        <CardTitle>{editMode ? "Edit" : "Add"} Variant</CardTitle>
       </CardHeader>
       <CardContent className={"grid gap-8"}>
         <form id={"create-widget-form"} onSubmit={form.handleSubmit(onSubmit)}>

@@ -14,12 +14,14 @@ interface WidgetVariantsTableProps {
   variants: WidgetVariant[];
   loading: boolean;
   error: Error | null;
+  handleClick: (variant: WidgetVariant) => void;
 }
 
 export default function WidgetVariantsTable({
   variants,
   loading,
   error,
+  handleClick,
 }: WidgetVariantsTableProps) {
   if (loading) {
     return (
@@ -55,8 +57,11 @@ export default function WidgetVariantsTable({
       </TableHeader>
 
       <TableBody>
-        {variants.map((variant) => (
-          <TableRow>
+        {variants.map((variant, index) => (
+          <TableRow
+            key={variant.id ?? index}
+            onClick={() => handleClick(variant)}
+          >
             <TableCell className={"flex gap-2"}>
               {variant.color}{" "}
               <div

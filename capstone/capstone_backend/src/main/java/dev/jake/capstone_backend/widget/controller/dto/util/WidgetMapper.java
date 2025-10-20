@@ -40,7 +40,7 @@ public class WidgetMapper {
     public static VariantDto toDto(Variant variant) {
         Inventory inventoryEntry = variant.getInventory();
 
-        return new VariantDto(variant.getWidget().getName(), variant.getColor(),
+        return new VariantDto(variant.getId(), variant.getWidget().getName(), variant.getColor(),
                 variant.getSize(), inventoryEntry.getQuantity());
     }
 }

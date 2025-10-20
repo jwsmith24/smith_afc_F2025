@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
 import type { WidgetVariant } from "@/types/WidgetVariant.ts";
-import { getVariants } from "@/api/variants.ts";
+import { deleteVariant, getVariants } from "@/api/variants.ts";
 
 export function useVariants(widgetId: number) {
   const [data, setData] = useState<WidgetVariant[]>([]);
@@ -19,11 +19,26 @@ export function useVariants(widgetId: number) {
     }
   }, [widgetId]);
 
+  const removeVariant = useCallback(
+    async (variantId: number) => {
+      try {
+        setLoading(true);
+        await deleteVariant(widgetId, variantId);
+        setError(null);
+      } catch (error) {
+        setError(error as Error);
+      } finally {
+        setLoading(false);
+      }
+    },
+    [widgetId],
+  );
+
   useEffect(() => {
     if (!widgetId) return;
 
     void fetchVariants();
   }, [fetchVariants, widgetId]);
 
-  return { data, loading, error, refetch: fetchVariants };
+  return { data, loading, error, refetch: fetchVariants, removeVariant };
 }
