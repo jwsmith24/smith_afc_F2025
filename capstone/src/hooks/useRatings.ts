@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
 import type { Rating } from "@/types/Rating.ts";
-import { getRatings } from "@/api/ratings.ts";
+import { getRatings, deleteRating } from "@/api/ratings.ts";
 
 export function useRatings(widgetId: number) {
   const [data, setData] = useState<Rating[]>([]);
@@ -12,6 +12,7 @@ export function useRatings(widgetId: number) {
       setLoading(true);
       const ratings = await getRatings(widgetId);
       setData(ratings);
+      setError(null);
     } catch (error) {
       setError(error as Error);
     } finally {
@@ -19,11 +20,23 @@ export function useRatings(widgetId: number) {
     }
   }, [widgetId]);
 
+  const removeRating = async (widgetId: number, ratingId: number) => {
+    try {
+      setLoading(true);
+      await deleteRating(widgetId, ratingId);
+      setError(null);
+    } catch (error) {
+      setError(error as Error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
     if (!widgetId) return;
 
     void fetchRatings();
   }, [fetchRatings, widgetId]);
 
-  return { data, loading, error, refetch: fetchRatings };
+  return { data, loading, error, refetch: fetchRatings, removeRating };
 }

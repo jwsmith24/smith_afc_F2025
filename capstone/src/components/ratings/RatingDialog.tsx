@@ -15,12 +15,12 @@ import { useState } from "react";
 import RatingForm from "@/components/ratings/RatingForm.tsx";
 import type { Rating } from "@/types/Rating.ts";
 import { toast } from "sonner";
-import { deleteRating } from "@/api/ratings.ts";
 
 interface RatingDialogProps {
   widgetName: string;
   widgetId: number;
   refetchCards: () => void;
+  removeRating: () => void;
 }
 
 export default function RatingDialog({
@@ -28,7 +28,13 @@ export default function RatingDialog({
   widgetId,
   refetchCards,
 }: RatingDialogProps) {
-  const { data: ratings, loading, error, refetch } = useRatings(widgetId);
+  const {
+    data: ratings,
+    loading,
+    error,
+    refetch,
+    removeRating,
+  } = useRatings(widgetId);
 
   const [addOpen, setAddOpen] = useState(false);
   const [editOpen, setEditOpen] = useState(false);
@@ -48,10 +54,15 @@ export default function RatingDialog({
       return;
     }
 
-    await deleteRating(widgetId, activeRating.id);
+    await removeRating(widgetId, activeRating.id);
+
     await refetch();
 
-    toast.success("Rating successfully deleted");
+    if (error) {
+      toast.error(error.message);
+    } else {
+      toast.success("Rating successfully deleted");
+    }
   };
 
   return (
