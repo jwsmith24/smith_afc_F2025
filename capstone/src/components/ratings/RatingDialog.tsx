@@ -15,6 +15,7 @@ import { useState } from "react";
 import RatingForm from "@/components/ratings/RatingForm.tsx";
 import type { Rating } from "@/types/Rating.ts";
 import { toast } from "sonner";
+import { deleteRating } from "@/api/ratings.ts";
 
 interface RatingDialogProps {
   widgetName: string;
@@ -37,6 +38,20 @@ export default function RatingDialog({
   const handleClick = (rating: Rating) => {
     console.log("setting active rating to: ", rating); //.todo wtd
     setActiveRating(rating);
+  };
+
+  const handleDelete = async () => {
+    if (!activeRating) return;
+
+    if (!activeRating.id) {
+      toast.error("Current rating does not have a valid id");
+      return;
+    }
+
+    await deleteRating(widgetId, activeRating.id);
+    await refetch();
+
+    toast.success("Rating successfully deleted");
   };
 
   return (
@@ -84,12 +99,7 @@ export default function RatingDialog({
               className={`bg-slateGray hover:bg-errorRed  cursor-pointer 
                   ${!activeRating ? "hidden" : ""}`}
               disabled={!activeRating}
-              onClick={() =>
-                // todo: actually implement delete
-                toast.message(
-                  <pre>{JSON.stringify(activeRating, null, 2)}</pre>,
-                )
-              }
+              onClick={() => handleDelete()}
             >
               Delete Rating
             </Button>

@@ -187,6 +187,7 @@ public class WidgetService {
     }
 
 
+    @Transactional
     public void deleteVariant(Long widgetId, Long variantId) {
         Widget widget = widgetRepository.findById(widgetId)
                 .orElseThrow(() -> new WidgetNotFoundException(widgetId));

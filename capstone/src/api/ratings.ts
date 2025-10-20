@@ -29,3 +29,10 @@ export async function updateRating(
   );
   return response.data;
 }
+
+export async function deleteRating(widgetId: number, ratingId: number) {
+  const path = `${BASE_URL}/${widgetId}/ratings/${ratingId}`;
+  const response = await axios.delete(path);
+
+  return response.data;
+}
