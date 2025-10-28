@@ -15,6 +15,7 @@ interface WidgetVariantsTableProps {
   loading: boolean;
   error: Error | null;
   handleClick: (variant: WidgetVariant) => void;
+  activeVariant: WidgetVariant | undefined;
 }
 
 export default function WidgetVariantsTable({
@@ -22,6 +23,7 @@ export default function WidgetVariantsTable({
   loading,
   error,
   handleClick,
+  activeVariant,
 }: WidgetVariantsTableProps) {
   if (loading) {
     return (
@@ -61,6 +63,7 @@ export default function WidgetVariantsTable({
           <TableRow
             key={variant.id ?? index}
             onClick={() => handleClick(variant)}
+            className={`cursor-pointer ${activeVariant?.id === variant.id ? "bg-electricBlue/20" : ""}`}
           >
             <TableCell className={"flex gap-2"}>
               {variant.color}{" "}

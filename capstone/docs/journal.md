@@ -26,7 +26,12 @@ failing test and writing code to make it pass for the backend code and the drive
 style for the frontend code. Successfully implemented all required functionality and all the 
 bonus features.
 
+- Cloned the todo app and completed all work on a feature branch, committing locally after each 
+  milestone.
+
 10/28
+
+- Seeded the database with example entries via flyway migration scripts.
 
 - Encountered an issue with JPA/hibernate in the brightforge project where after restarting the 
   server, the seed data being added via flyway migrations did not have the bidirectional relationships 

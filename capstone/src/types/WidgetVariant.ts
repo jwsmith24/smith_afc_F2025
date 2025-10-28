@@ -9,8 +9,8 @@ export type WidgetVariant = {
 
 export const variantFormSchema = z.object({
   color: z.string().min(3).max(32),
-  size: z.enum(["small", "medium", "large"]),
-  initialQuantity: z.number(),
+  size: z.enum(["Small", "Medium", "Large"]),
+  quantity: z.number(),
 });
 
-export type CreateVariantFormSchema = z.infer<typeof variantFormSchema>;
+export type VariantSchema = z.infer<typeof variantFormSchema>;

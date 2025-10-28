@@ -20,7 +20,6 @@ interface RatingDialogProps {
   widgetName: string;
   widgetId: number;
   refetchCards: () => void;
-  removeRating: () => void;
 }
 
 export default function RatingDialog({
@@ -42,8 +41,11 @@ export default function RatingDialog({
   const [activeRating, setActiveRating] = useState<Rating>();
 
   const handleClick = (rating: Rating) => {
-    console.log("setting active rating to: ", rating); //.todo wtd
-    setActiveRating(rating);
+    if (rating.id === activeRating?.id) {
+      setActiveRating(undefined);
+    } else {
+      setActiveRating(rating);
+    }
   };
 
   const handleDelete = async () => {
@@ -55,7 +57,7 @@ export default function RatingDialog({
     }
 
     await removeRating(widgetId, activeRating.id);
-
+    setActiveRating(undefined);
     await refetch();
 
     if (error) {

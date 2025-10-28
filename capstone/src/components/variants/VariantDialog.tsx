@@ -35,14 +35,25 @@ export default function VariantDialog({
     removeVariant,
   } = useVariants(widgetId);
 
-  const [addFormOpen, setAddFormOpen] = useState(false);
-  const [editFormOpen, setEditFormOpen] = useState(false);
+  const [formMode, setFormMode] = useState<"add" | "edit" | "undefined">();
 
   const [activeVariant, setActiveVariant] = useState<WidgetVariant>();
 
   const handleClick = (variant: WidgetVariant) => {
-    console.log("setting active variant to: ", variant);
-    setActiveVariant(variant);
+    // toggle
+    if (variant.id === activeVariant?.id) {
+      setActiveVariant(undefined);
+    } else {
+      setActiveVariant(variant);
+    }
+  };
+
+  const handleFormSuccess = () => {
+    setActiveVariant(undefined);
+    setFormMode(undefined);
+
+    void refetch();
+    refetchCards();
   };
 
   const handleDelete = async () => {
@@ -55,7 +66,7 @@ export default function VariantDialog({
     }
 
     await removeVariant(activeVariant.id);
-
+    setActiveVariant(undefined);
     await refetch();
 
     if (error) {
@@ -89,20 +100,21 @@ export default function VariantDialog({
             loading={loading}
             error={error}
             handleClick={handleClick}
+            activeVariant={activeVariant}
           />
           <DialogFooter>
             <Button
               className={
                 "bg-slateGray hover:bg-limeGlow hover:text-black cursor-pointer"
               }
-              onClick={() => setAddFormOpen(true)}
+              onClick={() => setFormMode("add")}
             >
               Add Variant
             </Button>
             <Button
               className={`bg-slateGray hover:bg-forgeOrange hover:text-black cursor-pointer ${!activeVariant ? "hidden" : ""}`}
               disabled={!activeVariant}
-              onClick={() => setEditFormOpen(true)}
+              onClick={() => setFormMode("edit")}
             >
               Edit Variant
             </Button>
@@ -126,39 +138,35 @@ export default function VariantDialog({
           </DialogFooter>
         </DialogContent>
       </Dialog>
-      <Dialog open={addFormOpen} onOpenChange={setAddFormOpen}>
+      <Dialog
+        open={!!formMode}
+        onOpenChange={(open) => {
+          if (!open) {
+            setFormMode(undefined);
+            setActiveVariant(undefined);
+          }
+        }}
+      >
         <DialogContent>
           <DialogHeader>
-            <DialogTitle>BrightForge</DialogTitle>
-            <DialogDescription>Reimagine {`${widgetName}`}</DialogDescription>
+            {formMode === "add" ? (
+              <>
+                <DialogTitle>Create a New Variant for {widgetName}</DialogTitle>
+                <DialogDescription />
+              </>
+            ) : (
+              <>
+                <DialogTitle>Reimagine {widgetName}</DialogTitle>
+              </>
+            )}
           </DialogHeader>
+
           <VariantForm
             widgetId={widgetId}
             widgetName={widgetName}
-            editMode={false}
-            onSuccess={() => {
-              void refetch();
-              setAddFormOpen(false);
-              refetchCards();
-            }}
-          />
-        </DialogContent>
-      </Dialog>
-      <Dialog open={editFormOpen} onOpenChange={setEditFormOpen}>
-        <DialogContent>
-          <DialogHeader>
-            <DialogTitle>BrightForge</DialogTitle>
-            <DialogDescription>Reimagine {`${widgetName}`}</DialogDescription>
-          </DialogHeader>
-          <VariantForm
-            widgetId={widgetId}
-            widgetName={widgetName}
-            editMode={true}
-            onSuccess={() => {
-              void refetch();
-              setAddFormOpen(false);
-              refetchCards();
-            }}
+            editMode={formMode === "edit"}
+            variant={formMode === "edit" ? activeVariant : undefined}
+            onSuccess={handleFormSuccess}
           />
         </DialogContent>
       </Dialog>

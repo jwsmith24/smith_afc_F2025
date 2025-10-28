@@ -1,9 +1,6 @@
 package dev.jake.capstone_backend.widget.controller;
 
-import dev.jake.capstone_backend.widget.controller.dto.requests.AddNewRatingRequest;
-import dev.jake.capstone_backend.widget.controller.dto.requests.CreateNewWidgetRequest;
-import dev.jake.capstone_backend.widget.controller.dto.requests.CreateVariantRequest;
-import dev.jake.capstone_backend.widget.controller.dto.requests.UpdateRatingRequest;
+import dev.jake.capstone_backend.widget.controller.dto.requests.*;
 import dev.jake.capstone_backend.widget.controller.dto.responses.RatingDto;
 import dev.jake.capstone_backend.widget.controller.dto.responses.VariantDto;
 import dev.jake.capstone_backend.widget.controller.dto.responses.WidgetDto;
@@ -155,6 +152,15 @@ public class WidgetController {
         widgetService.deleteVariant(widgetId, variantId);
 
         return ResponseEntity.ok("Variant with id " + variantId + " deleted");
+    }
+
+    @PatchMapping("/{widgetId}/variants/{variantId}")
+    public ResponseEntity<VariantDto> updateVariant(@PathVariable Long widgetId,
+                                                    @PathVariable Long variantId,
+                                                    @RequestBody UpdateVariantRequest request) {
+        VariantDto updatedVariant = widgetService.updateVariant(variantId, request);
+
+        return ResponseEntity.ok(updatedVariant);
     }
 
 }

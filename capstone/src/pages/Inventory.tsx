@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button.tsx";
 import { useWidgets } from "@/hooks/useWidgets.ts";
 import CreateWidgetDialog from "@/components/widgets/CreateWidgetDialog.tsx";
 import { Loader2 } from "lucide-react";
+import { useEffect, useState } from "react";
 
 export default function Inventory() {
   const backToTop = () => {
@@ -10,9 +11,22 @@ export default function Inventory() {
     if (top) {
       top.scrollIntoView({ behavior: "smooth" });
     }
+    setShowBackToTop(false);
   };
 
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollTop = window.scrollY;
+      setShowBackToTop(scrollTop > 300);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   const { data: widgets, loading, error, refetch } = useWidgets();
+
+  const [showBackToTop, setShowBackToTop] = useState(false);
 
   return (
     <div className={"flex flex-col bg-slateGray"}>
@@ -52,7 +66,10 @@ export default function Inventory() {
           ))}
       </div>
       <section className={"flex items-center justify-center p-2"}>
-        <Button className={"cursor-pointer"} onClick={backToTop}>
+        <Button
+          className={`cursor-pointer transition-opacity duration-300 ${showBackToTop ? "opacity-100" : "opacity-0"}`}
+          onClick={backToTop}
+        >
           Back to Top
         </Button>
       </section>

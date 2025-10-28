@@ -24,18 +24,20 @@ import {
 } from "@/components/ui/select.tsx";
 import { Button } from "@/components/ui/button.tsx";
 import {
-  type CreateVariantFormSchema,
+  type VariantSchema,
   variantFormSchema,
+  type WidgetVariant,
 } from "@/types/WidgetVariant.ts";
-import { createVariant } from "@/api/variants.ts";
+import { createVariant, updateVariant } from "@/api/variants.ts";
 
-const sizeOptions = ["small", "medium", "large"];
+const sizeOptions = ["Small", "Medium", "Large"];
 
 interface VariantFormProps {
   onSuccess?: () => void;
   widgetId: number;
   widgetName: string;
   editMode?: boolean;
+  variant?: WidgetVariant;
 }
 
 export default function VariantForm({
@@ -43,18 +45,19 @@ export default function VariantForm({
   widgetId,
   widgetName,
   editMode = false,
+  variant,
 }: VariantFormProps) {
-  const form = useForm<CreateVariantFormSchema>({
+  const form = useForm<VariantSchema>({
     resolver: zodResolver(variantFormSchema),
     defaultValues: {
-      color: "#000000",
-      size: "medium",
-      initialQuantity: 0,
+      color: variant?.color ?? "#000000",
+      size: (variant?.size as "Small" | "Medium" | "Large") ?? "Medium",
+      quantity: variant?.quantity ?? 0,
     },
     mode: "onChange",
   });
 
-  async function onSubmit(data: CreateVariantFormSchema) {
+  async function onSubmit(data: VariantSchema) {
     if (!editMode) {
       try {
         const variant = await createVariant(widgetId, data);
@@ -62,12 +65,20 @@ export default function VariantForm({
         toast.success(`New variant for ${widgetName} created!`);
         onSuccess?.();
       } catch (error) {
-        toast.error("Failed to create widget.. please try again.");
+        toast.error("Failed to create variant.. please try again.");
         console.error(error);
       }
     } else {
-      // todo
-      toast.message("future update");
+      if (!variant?.id) return;
+      try {
+        await updateVariant(widgetId, variant.id, data);
+        console.log("Variant updated!");
+        toast.success("Variant updated!");
+        onSuccess?.();
+      } catch (error) {
+        toast.error("Failed to updated variant");
+        console.error(error);
+      }
     }
 
     form.reset();
@@ -144,12 +155,12 @@ export default function VariantForm({
               )}
             />
             <Controller
-              name={"initialQuantity"}
+              name={"quantity"}
               control={form.control}
               render={({ field, fieldState }) => (
                 <Field data-invalid={fieldState.invalid}>
                   <FieldLabel htmlFor="create-widget-form-color">
-                    Initial Quantity
+                    {editMode ? "Set Quantity" : "Initial Quantity"}
                   </FieldLabel>
                   <Input
                     {...field}

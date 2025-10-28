@@ -1,29 +1,25 @@
 package dev.jake.capstone_backend.widget.controller;
 
-import dev.jake.capstone_backend.widget.models.Inventory;
-import dev.jake.capstone_backend.widget.models.InventoryStatus;
-import dev.jake.capstone_backend.widget.controller.dto.requests.AddNewRatingRequest;
-import dev.jake.capstone_backend.widget.controller.dto.requests.CreateNewWidgetRequest;
-import dev.jake.capstone_backend.widget.controller.dto.requests.CreateVariantRequest;
-import dev.jake.capstone_backend.widget.controller.dto.requests.UpdateRatingRequest;
+import dev.jake.capstone_backend.widget.controller.dto.requests.*;
 import dev.jake.capstone_backend.widget.controller.dto.responses.RatingDto;
 import dev.jake.capstone_backend.widget.controller.dto.responses.VariantDto;
 import dev.jake.capstone_backend.widget.controller.dto.responses.WidgetDto;
 import dev.jake.capstone_backend.widget.controller.dto.util.WidgetMapper;
 import dev.jake.capstone_backend.widget.controller.exceptions.RatingNotFoundException;
+import dev.jake.capstone_backend.widget.controller.exceptions.VariantNotFoundException;
 import dev.jake.capstone_backend.widget.controller.exceptions.WidgetNotFoundException;
-import dev.jake.capstone_backend.widget.models.Rating;
-import dev.jake.capstone_backend.widget.models.Variant;
-import dev.jake.capstone_backend.widget.models.Widget;
+import dev.jake.capstone_backend.widget.models.*;
 import dev.jake.capstone_backend.widget.repos.RatingRepository;
 import dev.jake.capstone_backend.widget.repos.VariantRepository;
 import dev.jake.capstone_backend.widget.repos.WidgetRepository;
 import jakarta.transaction.Transactional;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@Slf4j
 public class WidgetService {
 
     private final WidgetRepository widgetRepository;
@@ -177,7 +173,7 @@ public class WidgetService {
 
         Inventory inventory = new Inventory();
         inventory.setVariant(variant);
-        inventory.setQuantity(request.initialQuantity());
+        inventory.setQuantity(request.quantity());
         inventory.setStatus(InventoryStatus.AVAILABLE);
 
         variant.setInventory(inventory);
@@ -202,5 +198,29 @@ public class WidgetService {
 
         widget.getVariants().remove(variant);
         widgetRepository.save(widget);
+    }
+
+    @Transactional
+    public VariantDto updateVariant(Long variantId, UpdateVariantRequest request) {
+        Variant variant =
+                variantRepository.findByIdWithInventory(variantId).orElseThrow(() -> new VariantNotFoundException(variantId));
+
+        log.info("got request: {}", request);
+
+        if (request.color() != null) {
+            variant.setColor(request.color());
+        }
+
+        if (request.size() != null) {
+            variant.setSize(request.size());
+        }
+
+        if (request.quantity() != null) {
+            variant.getInventory().setQuantity(request.quantity());
+        }
+
+        variantRepository.save(variant);
+
+        return WidgetMapper.toDto(variant);
     }
 }
