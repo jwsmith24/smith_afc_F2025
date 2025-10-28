@@ -16,6 +16,7 @@ import dev.jake.capstone_backend.widget.models.Rating;
 import dev.jake.capstone_backend.widget.models.Variant;
 import dev.jake.capstone_backend.widget.models.Widget;
 import dev.jake.capstone_backend.widget.repos.RatingRepository;
+import dev.jake.capstone_backend.widget.repos.VariantRepository;
 import dev.jake.capstone_backend.widget.repos.WidgetRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
@@ -27,12 +28,13 @@ public class WidgetService {
 
     private final WidgetRepository widgetRepository;
     private final RatingRepository ratingRepository;
+    private final VariantRepository variantRepository;
 
 
-    public WidgetService(WidgetRepository widgetRepository, RatingRepository ratingRepository) {
+    public WidgetService(WidgetRepository widgetRepository, RatingRepository ratingRepository, VariantRepository variantRepository) {
         this.widgetRepository = widgetRepository;
         this.ratingRepository = ratingRepository;
-
+        this.variantRepository = variantRepository;
     }
 
     @Transactional
@@ -155,10 +157,11 @@ public class WidgetService {
     }
 
     public List<VariantDto> getVariants(Long widgetId) {
-        Widget widget =
-                widgetRepository.findById(widgetId).orElseThrow(() -> new WidgetNotFoundException(widgetId));
 
-        return widget.getVariants()
+        List<Variant> variants =
+                variantRepository.findAllByWidgetIdWithInventory(widgetId);
+
+        return variants
                 .stream()
                 .map(WidgetMapper::toDto)
                 .toList();
