@@ -9,6 +9,7 @@ import dev.jake.capstone_backend.widget.controller.exceptions.RatingNotFoundExce
 import dev.jake.capstone_backend.widget.controller.exceptions.VariantNotFoundException;
 import dev.jake.capstone_backend.widget.controller.exceptions.WidgetNotFoundException;
 import dev.jake.capstone_backend.widget.models.*;
+import dev.jake.capstone_backend.widget.repos.MediaRepository;
 import dev.jake.capstone_backend.widget.repos.RatingRepository;
 import dev.jake.capstone_backend.widget.repos.VariantRepository;
 import dev.jake.capstone_backend.widget.repos.WidgetRepository;
@@ -25,12 +26,16 @@ public class WidgetService {
     private final WidgetRepository widgetRepository;
     private final RatingRepository ratingRepository;
     private final VariantRepository variantRepository;
+    private final MediaRepository mediaRepository;
+    private final WidgetMapper widgetMapper;
 
 
-    public WidgetService(WidgetRepository widgetRepository, RatingRepository ratingRepository, VariantRepository variantRepository) {
+    public WidgetService(WidgetRepository widgetRepository, RatingRepository ratingRepository, VariantRepository variantRepository, MediaRepository mediaRepository) {
         this.widgetRepository = widgetRepository;
         this.ratingRepository = ratingRepository;
         this.variantRepository = variantRepository;
+        this.mediaRepository = mediaRepository;
+        this.widgetMapper = new WidgetMapper(mediaRepository);
     }
 
     @Transactional
@@ -42,7 +47,6 @@ public class WidgetService {
         // create default variant
         Variant variant = new Variant();
         variant.setColor(request.baseColor());
-        variant.setSize(request.size());
 
         // create inventory entry
         Inventory inventoryEntry = new Inventory();
@@ -72,7 +76,7 @@ public class WidgetService {
     public List<WidgetDto> getAllWidgets() {
 
         List<Widget> widgets = widgetRepository.findAll();
-        return widgets.stream().map(WidgetMapper::toDto).toList();
+        return widgets.stream().map(widgetMapper::toDto).toList();
     }
 
     public WidgetDto getWidgetById(Long widgetId) {
@@ -80,7 +84,7 @@ public class WidgetService {
         Widget widget = widgetRepository.findById(widgetId).orElseThrow(() -> new WidgetNotFoundException(widgetId));
 
 
-        return WidgetMapper.toDto(widget);
+        return widgetMapper.toDto(widget);
     }
 
     @Transactional
@@ -148,7 +152,7 @@ public class WidgetService {
 
         return widget.getRatings()
                 .stream()
-                .map(WidgetMapper::toDto)
+                .map(widgetMapper::toDto)
                 .toList();
     }
 
@@ -159,7 +163,7 @@ public class WidgetService {
 
         return variants
                 .stream()
-                .map(WidgetMapper::toDto)
+                .map(widgetMapper::toDto)
                 .toList();
     }
 
@@ -221,6 +225,6 @@ public class WidgetService {
 
         variantRepository.save(variant);
 
-        return WidgetMapper.toDto(variant);
+        return widgetMapper.toDto(variant);
     }
 }

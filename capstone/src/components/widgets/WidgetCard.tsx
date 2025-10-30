@@ -1,12 +1,17 @@
 import type { Widget } from "@/types/Widget.ts";
 import VariantDialog from "@/components/variants/VariantDialog.tsx";
 import RatingDialog from "@/components/ratings/RatingDialog.tsx";
+import { useEffect } from "react";
 
 interface WidgetCardProps {
   widget: Widget;
   refetch: () => void;
 }
 export default function WidgetCard({ widget, refetch }: WidgetCardProps) {
+  useEffect(() => {
+    console.log("current widget", widget);
+  }, []);
+
   return (
     <>
       <article
@@ -24,9 +29,13 @@ export default function WidgetCard({ widget, refetch }: WidgetCardProps) {
 
         <section className={"flex justify-between items-center p-2"}>
           <img
-            src="/src/assets/react.svg"
-            alt="widget image"
-            className={"w-[80px]"}
+            src={
+              widget.primaryImageFileName
+                ? `http://localhost:8080/api/images/${widget.primaryImageFileName}`
+                : "/src/assets/react.svg"
+            }
+            alt={widget.name}
+            className={"w-[80px] rounded-lg object-cover"}
           />
           <div className={"flex gap-2"}>
             <RatingDialog

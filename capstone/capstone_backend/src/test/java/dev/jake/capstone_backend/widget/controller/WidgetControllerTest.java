@@ -15,6 +15,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 
+import java.time.Instant;
 import java.util.List;
 
 import static org.mockito.ArgumentMatchers.any;
@@ -72,7 +73,7 @@ class WidgetControllerTest {
     @Test
     void addWidget_ShouldReturnCreatedAndLocation() throws Exception {
         CreateNewWidgetRequest request = new CreateNewWidgetRequest("Test Widget", "Sample widget" +
-                " for testing");
+                " for testing", "#00000", 3);
 
         when(widgetService.createWidget(any(CreateNewWidgetRequest.class)))
                 .thenReturn(mockWidget);
@@ -149,7 +150,7 @@ class WidgetControllerTest {
 
     @Test
     void getRatings_ShouldReturnRatingDtos() throws Exception {
-        RatingDto mockRatingDto = new RatingDto(1L, 4, "Superb!");
+        RatingDto mockRatingDto = new RatingDto(1L, 4, "Superb!", Instant.now(), Instant.now());
 
         when(widgetService.getRatings(any(Long.class))).thenReturn(
                 List.of(mockRatingDto)

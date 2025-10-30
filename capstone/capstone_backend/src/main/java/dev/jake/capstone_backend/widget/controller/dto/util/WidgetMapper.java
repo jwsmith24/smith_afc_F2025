@@ -1,12 +1,10 @@
 package dev.jake.capstone_backend.widget.controller.dto.util;
 
-import dev.jake.capstone_backend.widget.models.Inventory;
+import dev.jake.capstone_backend.widget.models.*;
 import dev.jake.capstone_backend.widget.controller.dto.responses.RatingDto;
 import dev.jake.capstone_backend.widget.controller.dto.responses.VariantDto;
 import dev.jake.capstone_backend.widget.controller.dto.responses.WidgetDto;
-import dev.jake.capstone_backend.widget.models.Rating;
-import dev.jake.capstone_backend.widget.models.Variant;
-import dev.jake.capstone_backend.widget.models.Widget;
+import dev.jake.capstone_backend.widget.repos.MediaRepository;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -14,8 +12,13 @@ import java.math.RoundingMode;
 public class WidgetMapper {
 
 
+    private final MediaRepository mediaRepository;
 
-    public static WidgetDto toDto(Widget widget) {
+    public WidgetMapper(MediaRepository mediaRepository) {
+        this.mediaRepository = mediaRepository;
+    }
+
+    public WidgetDto toDto(Widget widget) {
 
         double avgRating = widget.getRatings().stream()
                 .mapToDouble(Rating::getScore)
@@ -26,18 +29,27 @@ public class WidgetMapper {
                 .setScale(1, RoundingMode.HALF_UP)
                 .doubleValue();
 
-        return new WidgetDto(widget.getId(), widget.getName(), widget.getDescription(), avgRating);
+        Media primaryMedia = mediaRepository.findAllByWidget_Id(widget.getId())
+                .stream()
+                .filter(Media::isPrimary).findFirst().orElse(null);
+
+        String imageUrl = (primaryMedia != null) ?
+                primaryMedia.getUrl() :
+                "react.svg";
+
+        return new WidgetDto(widget.getId(), widget.getName(), widget.getDescription(), avgRating
+                , imageUrl);
     }
 
 
 
-    public static RatingDto toDto(Rating rating) {
+    public RatingDto toDto(Rating rating) {
         return new RatingDto(rating.getId(), rating.getScore(), rating.getComment(),
                 rating.getCreatedAt(), rating.getUpdatedAt());
 
     }
 
-    public static VariantDto toDto(Variant variant) {
+    public VariantDto toDto(Variant variant) {
 
         Inventory inventoryEntry = variant.getInventory();
         int quantity = (inventoryEntry != null) ? inventoryEntry.getQuantity() : 0;

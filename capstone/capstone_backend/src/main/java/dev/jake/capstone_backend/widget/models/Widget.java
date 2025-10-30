@@ -47,5 +47,10 @@ public class Widget extends BaseEntity {
         variant.setWidget(this);
     }
 
+    public void addMedia(Media newMedia) {
+        media.add(newMedia);
+        newMedia.setWidget(this);
+    }
+
 
 }

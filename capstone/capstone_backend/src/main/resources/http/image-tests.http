@@ -1,0 +1,21 @@
+### Upload an image
+POST http://localhost:8080/api/images/upload?widgetId=8
+Content-Type: multipart/form-data; boundary=boundary
+
+--boundary
+Content-Disposition: form-data; name="file"; filename="test.png"
+Content-Type: image/png
+
+< /Users/j2473393/Desktop/test.png
+--boundary--
+
+### Get all media for widget
+GET http://localhost:8080/api/images?widgetId=8
+
+
+### Get image by filename
+GET http://localhost:8080/api/images/react.svg
+
+
+### Get widget with uploaded imagees
+GET http://localhost:8080/api/v1/widgets/8

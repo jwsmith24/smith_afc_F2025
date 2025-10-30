@@ -11,6 +11,7 @@ export function useWidgets() {
     try {
       setLoading(true);
       const widgets = await getWidgets();
+      console.log("got widgets", widgets);
       setData(widgets);
     } catch (err) {
       setError(err as Error);

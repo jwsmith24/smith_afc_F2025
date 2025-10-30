@@ -8,6 +8,7 @@ import dev.jake.capstone_backend.widget.controller.dto.util.WidgetMapper;
 import dev.jake.capstone_backend.widget.models.Rating;
 import dev.jake.capstone_backend.widget.models.Variant;
 import dev.jake.capstone_backend.widget.models.Widget;
+import dev.jake.capstone_backend.widget.repos.MediaRepository;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -21,9 +22,13 @@ import java.util.List;
 public class WidgetController {
 
     private final WidgetService widgetService;
+    private final WidgetMapper widgetMapper;
+    private final MediaRepository mediaRepository;
 
-    public WidgetController(WidgetService service) {
+    public WidgetController(WidgetService service, MediaRepository mediaRepository) {
         this.widgetService = service;
+        this.mediaRepository = mediaRepository;
+        this.widgetMapper = new WidgetMapper(mediaRepository);
     }
 
 
@@ -39,7 +44,7 @@ public class WidgetController {
                 .buildAndExpand(savedWidget.getId())
                 .toUri();
 
-        WidgetDto response = WidgetMapper.toDto(savedWidget);
+        WidgetDto response = widgetMapper.toDto(savedWidget);
 
         return ResponseEntity.created(location).body(response);
 
@@ -142,7 +147,7 @@ public class WidgetController {
                 .toUri();
 
 
-       return ResponseEntity.created(location).body(WidgetMapper.toDto(variant));
+       return ResponseEntity.created(location).body(widgetMapper.toDto(variant));
 
     }
 

@@ -6,7 +6,6 @@ public record CreateNewWidgetRequest (
         @NotNull String name,
         @NotNull String description,
         @NotNull String baseColor,
-        @NotNull String size,
         @NotNull Integer initialQuantity
 ){
 }
