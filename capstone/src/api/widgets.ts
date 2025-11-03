@@ -17,3 +17,11 @@ export async function createWidget(
 
   return response.data;
 }
+
+export async function deleteWidget(widgetId: number) {
+  const path = BASE_URL + `/${widgetId}`;
+
+  await axios.delete(path);
+
+  return true;
+}

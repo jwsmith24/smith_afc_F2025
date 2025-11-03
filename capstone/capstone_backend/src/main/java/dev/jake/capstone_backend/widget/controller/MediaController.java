@@ -23,9 +23,11 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/images")
+@CrossOrigin
 public class MediaController {
 
 
@@ -93,16 +95,27 @@ public class MediaController {
             List<Media> existingMedia =
                     mediaRepository.findAllByWidget_Id(widgetId);
 
+            // ensure existing entries are no longer primary
+            Optional<Media> lastPrimary =
+                    existingMedia.stream().filter(Media::isPrimary).findFirst();
+
+            if(lastPrimary.isPresent()) {
+                Media last = lastPrimary.get();
+                last.setPrimary(false);
+                mediaRepository.save(last);
+            }
+
+
             Media newMedia = new Media();
             newMedia.setUrl(fileName);
-            newMedia.setPrimary(existingMedia.isEmpty());
+            newMedia.setPrimary(true);
 
             widget.addMedia(newMedia); // helper for bidirectional mapping
 
             mediaRepository.save(newMedia);
 
 
-            return ResponseEntity.ok("File uploaded succesfully: " + fileName);
+            return ResponseEntity.ok("File uploaded successfully: " + fileName);
         } catch (IOException e) {
 
             System.out.println(e.getMessage());

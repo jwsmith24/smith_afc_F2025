@@ -6,6 +6,9 @@ import {
 import NavbarItem from "@/components/nav/NavbarItem.tsx";
 import type { NavItem } from "@/types/NavItem.ts";
 import { Input } from "@/components/ui/input.tsx";
+import { useState } from "react";
+import { Button } from "@/components/ui/button.tsx";
+import { useNavigate } from "react-router";
 
 export default function Navbar() {
   const navItems: NavItem[] = [
@@ -22,6 +25,23 @@ export default function Navbar() {
       path: "/about",
     },
   ];
+
+  const [searchContent, setSearchContent] = useState("");
+  const navigate = useNavigate();
+
+  const handleSearch = () => {
+    if (!searchContent) return;
+
+    const query = searchContent.toLowerCase();
+
+    if (query === "home") {
+      navigate("/");
+    } else if (query === "about") {
+      navigate("/about");
+    } else {
+      navigate("/inventory");
+    }
+  };
 
   return (
     <div
@@ -41,11 +61,18 @@ export default function Navbar() {
           ))}
         </NavigationMenuList>
       </NavigationMenu>
-      <Input
-        type={"text"}
-        className={"hidden sm:block max-w-1/4 mr-8"}
-        placeholder={"Search..."}
-      />
+      <div className={"flex gap-1 "}>
+        <Input
+          type={"text"}
+          className={"hidden sm:block w-[400px]"}
+          placeholder={"Search..."}
+          value={searchContent}
+          onChange={(event) => setSearchContent(event.target.value)}
+        />
+        <Button className={"cursor-pointer"} onClick={handleSearch}>
+          Search
+        </Button>
+      </div>
     </div>
   );
 }
