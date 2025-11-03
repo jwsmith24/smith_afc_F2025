@@ -27,6 +27,7 @@ export default function MediaDialog({
   refetchCards,
 }: MediaDialogProps) {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const [open, setOpen] = useState(false);
 
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
@@ -49,6 +50,8 @@ export default function MediaDialog({
     if (response.ok) {
       refetchCards();
       toast.success("New image uploaded!");
+      setOpen(false);
+      setSelectedFile(null);
     } else {
       console.error("Image upload failed");
       toast.error("Image upload failed");
@@ -57,7 +60,7 @@ export default function MediaDialog({
 
   return (
     <>
-      <Dialog>
+      <Dialog open={open} onOpenChange={setOpen}>
         <DialogTrigger asChild>
           <Button
             className={
