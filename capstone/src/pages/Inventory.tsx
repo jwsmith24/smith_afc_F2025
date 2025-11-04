@@ -4,6 +4,8 @@ import { useWidgets } from "@/hooks/useWidgets.ts";
 import CreateWidgetDialog from "@/components/widgets/CreateWidgetDialog.tsx";
 import { Loader2 } from "lucide-react";
 import { useEffect, useState } from "react";
+import { Input } from "@/components/ui/input.tsx";
+import { Label } from "@/components/ui/label.tsx";
 
 export default function Inventory() {
   const backToTop = () => {
@@ -25,13 +27,29 @@ export default function Inventory() {
   }, []);
 
   const { data: widgets, loading, error, refetch } = useWidgets();
-
   const [showBackToTop, setShowBackToTop] = useState(false);
+
+  const [filter, setFilter] = useState("");
+
+  const handleFilter = async (value: string) => {
+    setFilter(value.toLowerCase());
+  };
 
   return (
     <div className={"flex flex-col bg-slateGray"}>
-      <section className={"p-4 border-b sticky top-0 bg-slateGray z-10"}>
+      <section
+        className={"p-4 border-b sticky top-0 bg-slateGray z-10 flex gap-4"}
+      >
         <CreateWidgetDialog onWidgetCreated={refetch} />
+        <span>
+          <Label className={" text-white"}>
+            Filter
+            <Input
+              type={"text"}
+              onChange={(event) => handleFilter(event.target.value)}
+            />
+          </Label>
+        </span>
       </section>
       {/*grid container*/}
       <div
@@ -56,8 +74,9 @@ export default function Inventory() {
         {!loading && !error && widgets?.length === 0 && (
           <div>Add some widgets</div>
         )}
-        {widgets?.length > 0 &&
-          widgets.map((widget, index) => (
+        {widgets
+          ?.filter((widget) => widget.name.toLowerCase().includes(filter))
+          .map((widget, index) => (
             <WidgetCard
               widget={widget}
               key={widget.id ?? `${widget.name}-${index}`}

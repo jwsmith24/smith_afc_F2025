@@ -1,7 +1,6 @@
 import type { Widget } from "@/types/Widget.ts";
 import VariantDialog from "@/components/variants/VariantDialog.tsx";
 import RatingDialog from "@/components/ratings/RatingDialog.tsx";
-import { useEffect } from "react";
 import MediaDialog from "@/components/media/MediaDialog.tsx";
 import { Button } from "@/components/ui/button.tsx";
 import { deleteWidget } from "@/api/widgets.ts";
@@ -12,10 +11,6 @@ interface WidgetCardProps {
   refetch: () => void;
 }
 export default function WidgetCard({ widget, refetch }: WidgetCardProps) {
-  useEffect(() => {
-    console.log("current widget", widget);
-  }, []);
-
   const handleDelete = async () => {
     if (!widget) return;
 
