@@ -47,6 +47,7 @@ export default function Inventory() {
             <Input
               type={"text"}
               onChange={(event) => handleFilter(event.target.value)}
+              className={"bg-gray-100 text-black"}
             />
           </Label>
         </span>
