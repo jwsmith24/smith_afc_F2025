@@ -43,7 +43,7 @@ Key backend tools/components:
 
 
 ## Protocol
-The frontend and backend will communicate via a RESTful API over HTTP. See [the API docs](api.md) 
+The frontend and backend will communicate via a RESTful API over HTTP. See [the API docs](documentation.md) 
 
 ## Security
 Secrets such as database credentials will be protected using environment variables to keep 
