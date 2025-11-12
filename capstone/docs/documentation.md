@@ -4,20 +4,6 @@ Welcome to Brightforge, a modern inventory management service built for Widgets.
 
 ## Running the Application
 
-There are two methods of starting Brightforge:
-
-### Automated Start 
-
-This is the preferred method to bypass all the steps to run the application on your local 
-      system.
-- Navigate to the project root and run `./start.sh`.
-- Go to [localhost:5173](http://localhost:5173) with your web browser and start using the 
-        application!
-
-### Manual Start
-
-Use this method if there are any issues with running the automated script, or if you 
-      prefer to explicitly run each command.
 - Navigate to the project root in your file system.
 - Navigate to the capstone_backend directory.
 - Run `docker compose up -d` to start the Postgres docker container in the background.
